@@ -6,7 +6,9 @@
 # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
 # * https://testthat.r-lib.org/articles/special-files.html
 
-library(testthat)
-library(nleqslv)
+if (requireNamespace(testthat)) {
+  library(testthat)
+  library(nleqslv)
 
-test_check("nleqslv")
+  test_check("nleqslv")
+}
