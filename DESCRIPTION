@@ -1,5 +1,5 @@
 Package: nleqslv
-Version: 3.3.6
+Version: 3.3.7
 Title: Solve Systems of Nonlinear Equations
 Authors@R: 
     c(person(given = "Berend",
