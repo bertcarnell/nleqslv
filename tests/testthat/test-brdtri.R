@@ -35,8 +35,8 @@ test_that("Newton method: structured vs unstructured Jacobian give same solution
   expect_equal(z1$nfcnt, 4)
   expect_equal(z2$nfcnt, 4)
 
-  expect_equal(z1$message, "Function criterion near zero")
-  expect_equal(z2$message, "Function criterion near zero")
+  expect_equal(z1$message, expectedMessage1)
+  expect_equal(z2$message, expectedMessage1)
 
   expect_equal(z2$x, z1$x, tolerance = ztol)
 })
@@ -62,8 +62,8 @@ test_that("Newton method repeat run: structured vs unstructured Jacobian", {
   expect_equal(z1$nfcnt, 4)
   expect_equal(z2$nfcnt, 4)
 
-  expect_equal(z1$message, "Function criterion near zero")
-  expect_equal(z2$message, "Function criterion near zero")
+  expect_equal(z1$message, expectedMessage1)
+  expect_equal(z2$message, expectedMessage1)
 
   expect_equal(z2$x, z1$x, tolerance = ztol)
 })
@@ -90,8 +90,8 @@ test_that("Broyden method: structured vs unstructured Jacobian give same solutio
   expect_equal(z3$nfcnt, 10)
   expect_equal(z4$nfcnt, 10)
 
-  expect_equal(z3$message, "x-values within tolerance 'xtol'")
-  expect_equal(z4$message, "x-values within tolerance 'xtol'")
+  expect_equal(z3$message, expectedMessage2)
+  expect_equal(z4$message, expectedMessage2)
 
   # Compare Broyden solutions to Newton reference
   expect_equal(z3$x, z1$x, tolerance = sqrt(.Machine$double.eps))

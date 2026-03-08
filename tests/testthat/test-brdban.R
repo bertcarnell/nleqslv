@@ -44,10 +44,7 @@ test_that("nleqslv converges from xstart = -1", {
     control = list(trace = 0, ftol = 1e-8, xtol = 1e-8, btol = 1e-2, delta = -1)
   )
 
-  # Original comment: "should be 2 for x values within tolerance"
-  # Actual result in your output: termcd = 1
-  expect_true(znlq$termcd %in% c(1, 2))
-
+  expect_equal(znlq$termcd, 1)
   expect_true(all(abs(znlq$fvec) <= 1e-7))
 })
 
@@ -61,7 +58,7 @@ test_that("nleqslv converges from xstart = -2 with Newton method", {
     control = list(trace = 0, ftol = 1e-8, xtol = 1e-8, btol = 1e-2, delta = -1)
   )
 
-  expect_true(znlq$termcd %in% c(1, 2))
+  expect_equal(znlq$termcd, 1)
   expect_true(all(abs(znlq$fvec) <= 1e-8))
 })
 
@@ -75,7 +72,7 @@ test_that("nleqslv converges from xstart = -2 without specifying method", {
     control = list(trace = 0, ftol = 1e-8, xtol = 1e-8, btol = 1e-2, delta = -1)
   )
 
-  expect_true(znlq$termcd %in% c(1, 2))
+  expect_equal(znlq$termcd, 1)
   expect_true(all(abs(znlq$fvec) <= 1e-7))
 })
 
@@ -89,6 +86,6 @@ test_that("Repeat convergence test for xstart = -2", {
     control = list(trace = 0, ftol = 1e-8, xtol = 1e-8, btol = 1e-2, delta = -1)
   )
 
-  expect_true(znlq$termcd %in% c(1, 2))
+  expect_equal(znlq$termcd, 1)
   expect_true(all(abs(znlq$fvec) <= 1e-8))
 })

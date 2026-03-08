@@ -34,8 +34,8 @@ test_that("Broyden banded function behaves consistently across solver options", 
 
   expect_equal(z1$termcd, 1)
   expect_equal(z2$termcd, 1)
-  expect_equal(z1$message, "Function criterion near zero")
-  expect_equal(z2$message, "Function criterion near zero")
+  expect_equal(z1$message, expectedMessage1)
+  expect_equal(z2$message, expectedMessage1)
   expect_equal(z2$x, z1$x)
   expect_equal(z2$x, z1$x, tolerance = ztol)
 
@@ -46,8 +46,8 @@ test_that("Broyden banded function behaves consistently across solver options", 
 
   expect_equal(z1$termcd, 1)
   expect_equal(z2$termcd, 1)
-  expect_equal(z1$message, "Function criterion near zero")
-  expect_equal(z2$message, "Function criterion near zero")
+  expect_equal(z1$message, expectedMessage1)
+  expect_equal(z2$message, expectedMessage1)
   expect_equal(z2$x, z1$x, tolerance = ztol)
 
   # --- Broyden method with ml = 2, mu = 2 ---
@@ -57,8 +57,8 @@ test_that("Broyden banded function behaves consistently across solver options", 
 
   expect_equal(z3$termcd, 1)
   expect_equal(z4$termcd, 1)
-  expect_equal(z3$message, "Function criterion near zero")
-  expect_equal(z4$message, "Function criterion near zero")
+  expect_equal(z3$message, expectedMessage1)
+  expect_equal(z4$message, expectedMessage1)
 
   expect_equal(z3$x, z1$x)
   expect_equal(z4$x, z1$x)
