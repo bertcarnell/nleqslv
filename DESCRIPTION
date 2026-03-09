@@ -1,5 +1,5 @@
 Package: nleqslv
-Version: 3.3.6
+Version: 3.3.7
 Title: Solve Systems of Nonlinear Equations
 Authors@R: 
     c(person(given = "Berend",
@@ -29,3 +29,6 @@ Author: Berend Hasselman [aut] (Original Author),
 Maintainer: Rob Carnell <bertcarnell@gmail.com>
 Repository: CRAN
 Date/Publication: 2026-03-05 09:00:08 UTC
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
