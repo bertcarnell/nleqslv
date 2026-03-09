@@ -106,7 +106,7 @@ static char *fcn_message(char *msg, size_t mbufsiz, int termcd)
         case 6: snprintf(msg, mbufsiz, "Jacobian is singular (1/condition=%7.1e) (see allowSingular option)",getjacond()); break;
         case 7: snprintf(msg, mbufsiz, "Jacobian is completely unusable (all zero entries?)"); break;
         case -10: snprintf(msg, mbufsiz, "User supplied Jacobian most likely incorrect"); break;
-        default: snprintf(msg, mbufsiz, "'termcd' == %d should *NEVER* be returned! Please report bug to <bhh@xs4all.nl>.", termcd);
+        default: snprintf(msg, mbufsiz, "'termcd' == %d should *NEVER* be returned! Please report bug where directed in the DESCRIPTION file.", termcd);
     }
     return msg;
 }
