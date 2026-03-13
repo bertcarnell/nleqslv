@@ -1,5 +1,12 @@
 # Copyright (c) Rob Carnell 2026
 
+# More, Garbow, Hillstrom: Testing Unconstrained Optimization Software
+# ACM Trans. Math. Software, 7, March 1981, 17--41
+# Function as shown in this paper is for optimizing not for non linear equations
+# from the paper it is not clear what was used by the authors for their tests
+# of non linear equation solvers
+# function 30
+
 # Broyden tridiagonal function
 brdtri <- function(x) {
   n <- length(x)
