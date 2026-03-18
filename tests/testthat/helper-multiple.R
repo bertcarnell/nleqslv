@@ -294,3 +294,289 @@ jac_nocedal <- function(x) {
 }
 
 nocedal_xstart <- c(-1, 2)
+
+# from  BB in Journal of Statistical Software
+# from Jstatsoft paper on BB package (Barzila-Borwein)
+
+# @article{Varadhan:Gilbert:2009:JSSOBK:v32i04,
+#   author =    "Ravi Varadhan and Paul Gilbert",
+#   title = "BB: An R Package for Solving a Large System of Nonlinear Equations and for Optimizing a High-Dimensional Nonlinear Objective Function",
+#   journal =   "Journal of Statistical Software",
+#   volume =    "32",
+#   number =    "4",
+#   pages = "1--26",
+#   day =   "14",
+#   month = "10",
+#   year =  "2009",
+#   CODEN = "JSSOBK",
+#   ISSN =  "1548-7660",
+#   bibdate =   "2009-06-29",
+#   URL =   "http://www.jstatsoft.org/v32/i04",
+#   accepted =  "2009-06-29",
+#   acknowledgement = "",
+#   keywords =  "",
+#   submitted = "2008-12-31",
+# }
+
+chandraH <- function(x, c=0.9) {
+  n <- length(x)
+  k <- 1:n
+  mu <- (k - 0.5)/n
+  dterm <- outer(mu, mu, function(x1,x2) x1 / (x1 + x2) )
+  x - 1 / (1 - c/(2*n) * rowSums(t(t(dterm) * x)))
+}
+
+# approximate jacobian
+# needed because otherwise it has difficulty in finding a solution
+
+chandraH.jac <- function(x) {
+  n <- length(x)
+  J <- matrix(0,nrow=n,ncol=n)
+
+  diag(J) <- 1
+
+  J
+}
+
+chandra_xstart <- function(n) runif(n)
+
+# last example in
+# Hirsch, Pardalos, Resende: Solving systems of nonlinear equations with continuous GRASP
+# 0.25 <= x[1] <= 1 and 1.5 <= x[2] <= 2*pi
+# two roots
+
+sinexp <- function(x) {
+  stopifnot(length(x) == 2)
+  f <- numeric(2)
+  f[1] <- 0.5*sin(prod(x)) - 0.25*x[2]/pi - 0.5*x[1]
+  f[2] <- (1-0.25/pi)*(exp(2*x[1])-exp(1)) + exp(1)*x[2]/pi - 2*exp(1)*x[1]
+
+  f
+}
+
+sinexp_xstart <- function(g) {
+  xstart <- numeric(2)
+  xstart[1] <-  (g*0.25 + 1-g)/2
+  xstart[2] <-  (g*1.25 + (1-g)*pi)/2
+  xstart
+}
+
+# from  BB in Journal of Statistical Software
+# from Jstatsoft paper on BB package (Barzila-Borwein)
+
+# @article{Varadhan:Gilbert:2009:JSSOBK:v32i04,
+#   author =    "Ravi Varadhan and Paul Gilbert",
+#   title = "BB: An R Package for Solving a Large System of Nonlinear Equations and for Optimizing a High-Dimensional Nonlinear Objective Function",
+#   journal =   "Journal of Statistical Software",
+#   volume =    "32",
+#   number =    "4",
+#   pages = "1--26",
+#   day =   "14",
+#   month = "10",
+#   year =  "2009",
+#   CODEN = "JSSOBK",
+#   ISSN =  "1548-7660",
+#   bibdate =   "2009-06-29",
+#   URL =   "http://www.jstatsoft.org/v32/i04",
+#   accepted =  "2009-06-29",
+#   acknowledgement = "",
+#   keywords =  "",
+#   submitted = "2008-12-31",
+# }
+
+troesch <- function(x) {
+  n <- length(x)
+  tnm1 <- 2:(n-1)
+  f <- rep(NA, n)
+
+  h <- 1 / (n+1)
+  h2 <- 10 * h^2
+
+  f[1]    <- 2 * x[1] + h2 * sinh(10 * x[1]) - x[2]
+  f[tnm1] <- 2 * x[tnm1] + h2 * sinh(10 * x[tnm1]) - x[tnm1-1] - x[tnm1+1]
+  f[n]    <- 2 * x[n] + h2 * sinh(10 * x[n]) - x[n-1] - 1
+
+  f
+}
+
+troesch_xstart <- function(n) runif(n)
+
+################################################################################
+
+
+# intersection of circles
+
+# http://paulbourke.net/geometry/circlesphere/
+
+#    The following note describes how to find the intersection point(s) between two circles on a plane,
+#    the following notation is used. The aim is to find the two points P3 = (x3, y3) if they exist.
+#
+#    see circle_2circle1.gif
+
+#    First calculate the distance d between the center of the circles. d = ||P1 - P0||.
+#
+#    If d > r0 + r1 then there are no solutions, the circles are separate.
+#    If d < |r0 - r1| then there are no solutions because one circle is contained within the other.
+#    If d = 0 and r0 = r1 then the circles are coincident and there are an infinite number of solutions.
+#    Considering the two triangles P0P2P3 and P1P2P3 we can write
+#    a2 + h2 = r02 and b2 + h2 = r12
+#    Using d = a + b we can solve for a,
+#
+#    a = (r02 - r12 + d2 ) / (2 d)
+#    It can be readily shown that this reduces to r0 when the two circles touch at one point, ie: d = r0 + r1
+#
+#    Solve for h by substituting a into the first equation, h2 = r02 - a2
+#
+#    So
+#    P2 = P0 + a ( P1 - P0 ) / d
+#    And finally, P3 = (x3,y3) in terms of P0 = (x0,y0), P1 = (x1,y1) and P2 = (x2,y2), is
+#
+#    x3 = x2 +- h ( y1 - y0 ) / d
+#    y3 = y2 -+ h ( x1 - x0 ) / d
+
+
+# http://www.ambrsoft.com/TrigoCalc/Circles2/Circle2.htm
+
+# (x-a)^2 + (y-b)^2 = r0^2
+# (x-c)^2 + (y-d)^2 = r1^2
+
+# D = sqrt((c-a)^2+(d-b)^2)
+
+# r0+r1> D and D> abs(r0-r1)
+
+# line connecting two intersection points
+
+# y =(a-c)/(d-b) * x +( (r0^2-r1^2) + (c^2-a^2) + (d^2-b^2) ) / ( 2*(d-b) )
+
+# equation of line connecting two ceneters
+
+# y = (d-b)/(c-a) * x - a*(d-b)/(c-a) + b
+
+# Delta=0.25 * sqrt( (D+r0+r1)*(D+r0-r1)*(D-r0+r1)*(-D+r0+r1) )
+
+# x1,2 = (a+c)/2 + (c-a)*(r0^2-r1^2)/(2*D^2) +/- 2*(b-d)/D^2 * Delta
+# y1,2 = (b+d)/2 + (d-b)*(r0^2-r1^2)/(2*D^2) -/+ 2*(a-c)/D^2 * Delta
+
+# (x-1)^2 + (y-2)^2 = 9
+# (x-3)^2 + (y+1)^2 = 16
+# a=1, b=2,r0=3
+# c=3,d=-1,r1=4
+
+# intersection points (3.86,2.910) and (-0.94,-0.29)
+
+xc1 <- c(1,2)
+xc2 <- c(3,-1)
+r0 <- 3
+r1 <- 4
+
+circle.intersect <- function(xc1,xc2,r0,r1) {
+  a <- xc1[1]
+  b <- xc1[2]
+  cz <- xc2[1]
+  d <- xc2[2]
+
+  D <- sqrt((cz-a)^2+(d-b)^2)
+  Delta <- 0.25 * sqrt( (D+r0+r1)*(D+r0-r1)*(D-r0+r1)*(-D+r0+r1) )
+
+  x1 <- (a+cz)/2 + (cz-a)*(r0^2-r1^2)/(2*D^2) + 2*(b-d)/D^2 * Delta
+  x2 <- (a+cz)/2 + (cz-a)*(r0^2-r1^2)/(2*D^2) - 2*(b-d)/D^2 * Delta
+
+  y1 <- (b+d)/2 + (d-b)*(r0^2-r1^2)/(2*D^2) - 2*(a-cz)/D^2 * Delta
+  y2 <- (b+d)/2 + (d-b)*(r0^2-r1^2)/(2*D^2) + 2*(a-cz)/D^2 * Delta
+
+  return(list(P1=c(x1,y1),P2=c(x2,y2)))
+}
+
+fcircle <- function(x,xc1,xc2,r0,r1) {
+  f <- numeric(2)
+  f[1] <- (x[1]-xc1[1])^2+(x[2]-xc1[2])^2 - r0^2
+  f[2] <- (x[1]-xc2[1])^2+(x[2]-xc2[2])^2 - r1^2
+  return(f)
+}
+
+################################################################################
+
+# Steady-State solution for reaction rate equations
+# Shacham homotopy method (discrete changing of one or more parameters)
+# M. Shacham: Numerical Solution of Constrained Non-linear algebriac equations
+# International Journal for Numerical Methods in Engineering, 1986, pp.1455--1481.
+
+# solution should always be > 0
+# second initial point converges to infeasible solution
+
+# Problem 2, page 1463/1464
+
+cutlip <- function(x, k1, k2, k3, kr1, kr2) {
+  stopifnot(length(x) == 6)
+
+  r <- numeric(6)
+
+  r[1] = 1 - x[1] - k1*x[1]*x[6] + kr1 * x[4]
+  r[2] = 1 - x[2] - k2*x[2]*x[6] + kr2 * x[5]
+  r[3] = -x[3] + 2*k3*x[4]*x[5]
+  r[4] = k1*x[1]*x[6] - kr1*x[4] - k3*x[4]*x[5]
+  r[5] = 1.5*(k2*x[2]*x[6] - kr2*x[5]) - k3*x[4]*x[5]
+  r[6] = 1 - x[4] - x[5] - x[6]
+
+  r
+}
+
+cutlip_xstart <- function(n) runif(n, 0, 1)
+
+################################################################################
+
+# R. Baker Kearfott, Some tests of Generalized Bisection,
+# ACM Transactions on Methematical Software, Vol. 13, No. 3, 1987, pp 197-220
+
+# Robot kinematics example Kearfott (4.2 Problem 11)
+
+a <- c(4.371e-3, -0.3578   , -0.1238,
+       -1.637e-3, -0.9338   ,  1.0,
+       -0.3571  ,  0.2238   ,  0.7623,
+       0.2638  , -0.7745e-1, -0.6734,
+       -0.6022  ,  1.0      ,  0.3578,
+       4.731e-3, -0.7623   ,  0.2238,
+       0.3461
+)
+
+kearfott <- function(x) {
+  stopifnot(length(x) == 8)
+  y <- numeric(8)
+  y[1] <- a[1]*x[1]*x[3]  + a[2]*x[2]*x[3] + a[3]*x[1] + a[4]*x[2]  + a[5]*x[4]  + a[6]*x[7] + a[7]
+  y[2] <- a[8]*x[1]*x[3]  + a[9]*x[2]*x[3] + a[1]*x[1] + a[11]*x[2] + a[12]*x[4] + a[13]
+  y[3] <- a[14]*x[6]*x[8] + a[15]*x[1]     + a[16]*x[2]
+  y[4] <- a[17]*x[1] + a[18]*x[2] + a[19]
+  y[5] <- x[1]^2 + x[2]^2-1
+  y[6] <- x[3]^2 + x[4]^2-1
+  y[7] <- x[5]^2 + x[6]^2-1
+  y[8] <- x[7]^2 + x[8]^2-1
+  y
+}
+
+kearfott_xstart <- runif(8, -1, 1)
+
+# A high-degree polynomial system (section 4.3 Problem 12)
+# There are 12 real roots (and 126 complex roots to this system!)
+
+hdp <- function(x) {
+  f <- numeric(length(x))
+  f[1] <- 5 * x[1]^9 - 6 * x[1]^5 * x[2]^2 + x[1] * x[2]^4 + 2 * x[1] * x[3]
+  f[2] <- -2 * x[1]^6 * x[2] + 2 * x[1]^2 * x[2]^3 + 2 * x[2] * x[3]
+  f[3] <- x[1]^2 + x[2]^2 - 0.265625
+  f
+}
+
+hdp_xstart <- runif(3, -1, 1)
+
+# Two intersecting parabolas (4.3 Problem 14)
+
+twoip <- function(x) {
+  stopifnot(length(x) == 2)
+  f <- numeric(length(x))
+  f[1] <- x[1]^2 - 4*x[2]
+  f[2] <- x[2]^2 - 2*x[1] + 4*x[2]
+  f
+}
+
+twoip_xstart <- runif(2, -1, 1)
+

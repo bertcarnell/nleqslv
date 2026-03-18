@@ -115,3 +115,27 @@ test_that("Broyden Banded function with testnslv", {
   expect_true(all(temp$out$termcd %in% c(1,2)))
   expect_true(all(temp$out$Iter < 25))
 })
+
+test_that("Broyden Banded with function scale", {
+  temp_brdban <- function(x, fscale) brdban(x) / fscale
+
+  n <- 10
+  xstart <- -rep(1,n)
+
+  Fscale <- rep(1,n)
+  temp <- testnslv(xstart, temp_brdban, fscale=Fscale)
+  expect_true(all(temp$out$Fnorm < 1E-12))
+  temp <- nleqslv(xstart, temp_brdban, fscale=Fscale)
+
+  Fscale <- c(10, 5, rep(1, n-2))
+  temp2 <- testnslv(xstart, temp_brdban, fscale=Fscale)
+  expect_true(all(temp2$out$Fnorm < 1E-12))
+  temp2 <- nleqslv(xstart, temp_brdban, fscale=Fscale)
+  expect_equal(temp$x, temp2$x, tolerance = 1E-6)
+
+  Fscale <- c(20, 5, 2, rep(1, n-3))
+  temp3 <- testnslv(xstart, temp_brdban, fscale=Fscale)
+  expect_true(all(temp3$out$Fnorm < 1E-12))
+  temp3 <- nleqslv(xstart, temp_brdban, fscale=Fscale)
+  expect_equal(temp$x, temp3$x, tolerance = 1E-6)
+})
