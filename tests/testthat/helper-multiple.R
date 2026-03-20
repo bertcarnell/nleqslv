@@ -580,3 +580,448 @@ twoip <- function(x) {
 
 twoip_xstart <- runif(2, -1, 1)
 
+################################################################################
+
+# http://math.fullerton.edu/mathews/n2003/BroydenMethodMod.html
+# page can only be found by searching for broyden site:*.fullerton.edu
+
+# Exercize 1 (2 solutions)
+
+broyden_f1 <- function(par) {
+  stopifnot(length(par) == 2)
+  x <- par[1]
+  y <- par[2]
+  f <- numeric(2)
+
+  f[1] <- 1 - 4*x + 2*x^2 - 2*y^3
+  f[2] <- -4 + x^4 + 4*y + 4*y^4
+
+  f
+}
+
+broyden_f2 <- function(par) {
+  stopifnot(length(par) == 3)
+  x <- par[1]
+  y <- par[2]
+  z <- par[3]
+  f <- numeric(3)
+
+  f[1] <- 9*x^2 + 36*y^2 + 4*z^2 - 36
+  f[2] <- x^2 - 2*y^2 - 20*z
+  f[3] <- x^2 - y^2 + z^2
+
+  f
+}
+
+# Exercise 7 (1 solution)
+broyden_f7 <- function(par) {
+  stopifnot(length(par) == 4)
+  w <- par[1]
+  x <- par[2]
+  y <- par[3]
+  z <- par[4]
+  f <- numeric(4)
+
+  f[1] <- w^2 + x^2 + 3*y^2 - z^3 - 5
+  f[2] <- w + x^3 - 2*y^2 - 10*z
+  f[3] <- 20 - w + x^2 + y^3 + z^2
+  f[4] <- w^3 + x - y^3 + z - 10
+
+  f
+}
+
+broyden_f7jac <- function(par) {
+  stopifnot(length(par) == 4)
+  w <- par[1]
+  x <- par[2]
+  y <- par[3]
+  z <- par[4]
+  J <- matrix(NA,nrow=4,ncol=4)
+  J[1,1] <- 2*w   ;  J[1,2] <- 2*x  ;    J[1,3] <- 6*y   ;    J[1,4] <- -3*z^2
+  J[2,1] <- 1     ;  J[2,2] <- 3*x^2;    J[2,3] <- -4*y  ;    J[2,4] <- -10
+  J[3,1] <- -1    ;  J[3,2] <- 2*x  ;    J[3,3] <- 3*y^2 ;    J[3,4] <- 2*z
+  J[4,1] <- 3*w^2 ;  J[4,2] <- 1    ;    J[4,3] <- -3*y^2;    J[4,4] <- 1
+
+  J
+}
+
+broyden_f7_xstart <- c(-4,4,-4,4)
+
+################################################################################
+
+# Minoru Kuno and J.D. Seader:
+# Computing All Real Solutions to Systems of Nonlinear Equations with a Global Fixed-Point Homotopy
+# Industrial & Engineering Chemistry Research,  Vol 1988, 27, pp. 1320-1329
+
+# test Kuno Seader equation set 17
+
+kunoseader_f <- function(x) {
+  stopifnot(length(x) == 2)
+  y <- numeric(2)
+  y[1] <- 2*x[1]^3 + 2 * x[1]*x[2] - 22*x[1] + x[2]^2 + 13
+  y[2] <- x[1]^2 + 2*x[1]*x[2]+2*x[2]^3 - 14 * x[2] + 9
+  y
+}
+
+# test Kuno Seader equation set 34
+
+kunoseader_f34 <- function(x) {
+  stopifnot(length(x) == 3)
+  y <- numeric(3)
+  y[1] <- (x[1]-x[2]^2)*(x[1]-sin(x[2]))
+  y[2] <- (cos(x[2])-x[1])*(x[2]-cos(x[1]))
+  # x[3] slack variable to ensure 0 <= x[1]/[2] <= 1
+  y[3] <- x[2]*(x[2]-1)+x[3]^2
+  y
+}
+
+################################################################################
+
+# Becker Rustem function
+
+# Robin Becker, Berc Rustem: Algorithms for solving nonlinear dynamic decision models,
+#                            Annals of Operations Research 44 , 1993, pp. 117-42
+# example 1A (function, start)
+
+bkrust <- function(x) {
+  n <- length(x)
+  y <- numeric(n)
+
+  y[1] <- 4*(x[1]-x[2]^2)
+
+  k <- 2:(n-1)
+  y[k] <- 8*x[k]*(x[k]^2-x[k-1]) - 2*(1-x[k]) + 4*(x[k]-x[k+1]^2)
+
+  y[n] <- 8*x[n]*(x[n]^2 - x[n-1]) - 2 * (1 - x[n])
+  y
+}
+
+bkrjac <- function(x) {
+  n <- length(x)
+  J <- matrix(numeric(n*n),n,n)
+
+  J[1,1] <- 4
+  J[1,2] <- -8*x[2]
+  J[n,n-1] <- -8*x[n]
+  J[n,n  ] <- 24*x[n]^2 - 8*x[n-1]+2
+  for (p in 2:(n-1)) {
+    J[p,p-1] <- -8*x[p]
+    J[p,p]   <- 24*x[p]^2 - 8*x[p-1] + 6
+    J[p,p+1] <- -8*x[p+1]
+  }
+  J
+}
+
+bkrust_xstart <- rep(-2, 36)
+
+################################################################################
+
+# Boggs function
+# mentioned in http://folk.uib.no/ssu029/Pdf_file/Testproblems/testprobRheinboldt03.pdf
+# problem 6
+# mentioned in Moon Sup Song, GENERALIZED ADAMS METHODS FOR THE SOLUTION OF SYSTEMS OF NONLINEAR EQUATIONS,
+#              Bulletin Korean Mathematical Society, Vol, 14, No. 1, 1977
+
+# Rheinboldt mentions: 3 solutions: c(-1,2), c(1,0), c(0.5sqrt(2),2)
+
+boggs <- function(x, a=0.5*pi) {
+  y <- c(0,0)
+  y[1] <- x[1]^2 - x[2] + 1.0
+  y[2] <- x[1] - cos(a * x[2])
+  return(y)
+}
+
+boggs_xstart <- c(1,0)
+
+################################################################################
+
+# Economic modelling problem
+#  A. P. Morgan, Solving Polynomial Systems Using Continuation for Scientiﬁc
+#                and Engineering Problems. Englewood Cliffs, NJ: Prentice-Hall, 1987.
+
+econ <- function(x, const) {
+  n <- length(x)
+  y <- numeric(n)
+
+  for( k in 1:(n-1) ) {
+    y[k] <- (x[k] + sum(x[1:(n-k-1)]*x[(k+1):(n-1)]))*x[n] - const[k]
+  }
+  y[n] <- sum(x[1:(n-1)]) + 1
+  y
+}
+
+################################################################################
+
+# Hiebert 3rd chemical reaction function;
+# used in
+# M. Shacham: Numerical Solution of Constrained Non-linear algebriac equations
+# International Journal for Numerical Methods in Engineering, 1986, pp.1455--1481.
+
+hiebert <- function(x, R=10) {
+  sqrtz <- function(x) { tryCatch(sqrt(x), warning=function(w) Inf, error=function(e) Inf) }
+
+  stopifnot(length(x) == 10)
+
+  y <- numeric(length(x))
+  xs <- sum(x)
+
+  y[1] <- x[1]+x[4]-3
+  y[2] <- 2*x[1]+x[2]+x[4]+x[7]+x[8]+x[9]+2*x[10] - R
+  y[3] <- 2*x[2]+2*x[5]+x[6]+x[7]-8
+  y[4] <- 2*x[3]+x[5]-4*R
+  y[5] <- x[1]*x[5]-0.193*x[2]*x[4]
+  # y[6] <- x[6]*x[2]^0.5 - 0.002597*(x[2]*x[4]*xs)^0.5
+  # y[7] <- x[7]*x[4]^0.5 - 0.003448*(x[1]*x[4]*xs)^0.5
+  y[6] <- x[6]*sqrtz(x[2]) - 0.002597*sqrtz(x[2]*x[4]*xs)
+  y[7] <- x[7]*sqrtz(x[4]) - 0.003448*sqrtz(x[1]*x[4]*xs)
+  y[8] <- x[8]*x[4] - 1.799e-5*x[2]*xs
+  y[9] <- x[9]*x[4] - 2.155e-4*x[1]*sqrtz(x[3]*xs)
+  y[10]<- x[10]*x[4]^2 - 3.846e-5*x[4]^2*xs
+
+  y
+}
+
+################################################################################
+
+# li five-diagonal function
+
+# Example 6.3 from  Guangye Li, Succesive column correction algorithms for solving sparse nonlinear systems of equations,
+#                   Mathematical Programming 43, 1989,, pp. 187-207
+
+li5 <- function(x) {
+  n <- length(x)
+  y <- numeric(n)
+
+  y[1] <- 4*(x[1]-x[2]^2) + x[2] - x[3]^2
+  y[2] <- 8*x[2]*(x[2]^2-x[1]) -2*(1-x[2])+4*(x[2]-x[3]^2)+x[3]-x[4]^2
+
+  k <- 3:(n-2)
+  y[k] <- 8*x[k]*(x[k]^2-x[k-1]) - 2*(1-x[k]) + 4*(x[k]-x[k+1]^2)+x[k-1]^2-x[k-2]+x[k+1]-x[k+2]^2
+
+  y[n-1] <-  8*x[n-1]*(x[n-1]^2-x[n-2])-2*(1-x[n-1])+4*(x[n-1]-x[n]^2) +x[n-2]^2-x[n-3]
+  y[n] <- 8*x[n]*(x[n]^2 - x[n-1]) - 2 * (1 - x[n]) + x[n-1]^2-x[n-2]
+  y
+}
+
+li5jac <-  function(x) {
+  n <- length(x)
+  J <- matrix(numeric(n*n),n,n)
+
+  J[1,1] <- 4
+  J[1,2] <- -8*x[2] + 1
+  J[1,3] <- -2*x[3]
+
+  J[2,1] <- -8*x[2]
+  J[2,2] <- 24*x[2]^2 -8*x[1] + 6
+  J[2,3] <- -8*x[3] + 1
+  J[2,4] <- -2*x[4]
+
+  for (p in 3:(n-2)) {
+    J[p,p-2] <- -1
+    J[p,p-1] <- -8*x[p] + 2*x[p-1]
+    J[p,p]   <- 24*x[p]^2 - 8*x[p-1] + 6
+    J[p,p+1] <- -8*x[p+1]  +1
+    J[p,p+2] <- -2*x[p+2]
+  }
+
+  J[n-1,n-3]  <- -1
+  J[n-1,n-2]  <- -8*x[n-1] + 2*x[n-2]
+  J[n-1,n-1]  <-  24*x[n-1]^2 - 8*x[n-2] + 6
+  J[n-1,n  ]  <- -8*x[n]
+  J[n,n-2] <-  -1
+  J[n,n-1] <- -8*x[n] + 2*x[n-1]
+  J[n,n  ] <- 24*x[n]^2 - 8*x[n-1]+2
+
+  J
+}
+
+li5_xstart <- rep(-2, 36)
+
+################################################################################
+
+# examples of systems of nonlinear equations from
+# A. Neumaier: Introduction to Numerical Analysis, Cambridge University Press, 2001
+# Example 6.2.3. (page 314)
+
+neum1 <- function(x) {
+
+  y = numeric(length(x))
+  y[1] = x[2]^2 - 3*x[1]^2
+  y[2] = x[1]^2+x[1]*x[3]+x[3]^2 - 3*x[2]^2
+  y[3] = x[2]^2 + x[2] + 1 - 3*x[3]^2
+
+  y
+}
+
+neum1jac <- function(x) {
+
+  n <- length(x)
+  J <- matrix(numeric(n*n),n,n)
+
+  J[1,1] = -6*x[1]
+  J[1,2] =  2*x[2]
+  J[2,1] = 2*x[1] + x[3]
+  J[2,2] = -6*x[2]
+  J[2,3] = x[1]+2*x[3]
+  J[3,2] = 2*x[2]+1
+  J[3,3] = -6*x[3]
+
+  J
+}
+
+neum1_xstart <- c(0.25,0.50,0.75)
+
+################################################################################
+
+# Example system from Octave manual
+
+octxmpl <- function(x) {
+  y <- numeric(2)
+  y[1] <- -2*x[1]^2 + 3 * x[1]*x[2]   + 4 * sin(x[2]) - 6
+  y[2] <-  3*x[1]^2 - 2 * x[1]*x[2]^2 + 3 * cos(x[1]) + 4
+
+  y
+}
+
+octxmpl_xstart <- c(1, 2)
+
+################################################################################
+
+#    Example 2 from
+#     W.C. Rheinboldt and J.V.Burkardt
+#        A Locally Parameterized Continuation Process
+#        AMS Transactions on Mathematical Software
+#        June 1983 Vol.9 No. 2
+
+#    Maneuvering airplanes at high altitude
+#     x1 roll  rate
+#     x2 pitch rate
+#     x3 yaw   rate
+#     x4 angle of attack
+#     x5 side slip angle
+#     x6 elevator angle
+#     x7 aileron angle
+#     x8 rudder angle
+
+# very very difficult
+# you need a maximum stepsize to really solve this properly
+# not available here
+
+pcex <- function(x) {
+  stopifnot(length(x) == 5)
+  y <- numeric(5)
+
+  x1 <- x[1]
+  x2 <- x[2]
+  x3 <- x[3]
+  x4 <- x[4]
+  x5 <- x[5]
+  x6 <- 0.0
+  x7 <- -0.18691
+  x8 <- 0.0
+
+  phi1 <- -0.727 * x2 * x3 + 8.39 * x3 * x4 - 684.4 * x4*x5 + 63.5 * x4 * x7
+
+  phi2 <-  0.949 * x1 * x3 + 0.173 * x1 * x5
+  phi3 <- -0.716 * x1 * x2 - 1.578 * x1 * x4 + 1.132 * x4*x7
+  phi4 <- - x1 * x5
+  phi5 <-   x1 * x4
+
+  a1 <- -3.933 * x1 + 0.107 * x2 + 0.126 * x3 - 9.99 * x5 - 45.83 * x7 -7.64 * x8
+  a2 <- -0.987 * x2 - 22.95 * x4 - 28.37 * x6
+  a3 <-  0.002 * x1 - 0.235 * x3 + 5.67 * x5 - 0.921 * x7 - 6.51 * x8
+  a4 <-  x2 - x4 - 0.168 * x6
+  a5 <- -x3 - 0.196 * x5 - 0.0071 * x7
+
+  y[1] <- a1 + phi1
+  y[2] <- a2 + phi2
+  y[3] <- a3 + phi3
+  y[4] <- a4 + phi4
+  y[5] <- a5 + phi5
+
+  y
+}
+
+pcexjac <- function(x) {
+  stopifnot(length(x) == 5)
+  n  <- length(x)
+  df <- matrix(numeric(n*n),n,n)
+
+  x1 <- x[1]
+  x2 <- x[2]
+  x3 <- x[3]
+  x4 <- x[4]
+  x5 <- x[5]
+  x6 <- 0.0
+  x7 <- -0.18691
+  x8 <- 0.0
+
+  df[1,1] <- -3.933
+  df[1,2] <-  -0.727 * x3 + 0.107
+  df[1,3] <-  -0.727 * x2 + 8.39 * x4 + 0.126
+  df[1,4] <-  8.39 * x3 - 684.4 * x5 + 63.5 * x7
+  df[1,5] <- -684.4 * x4 - 9.99
+
+  df[2,1] <- 0.949 * x3 + 0.173 * x5
+  df[2,2] <- -0.987
+  df[2,3] <- 0.949 * x1
+  df[2,4] <- -22.95
+  df[2,5] <- 0.173 * x1
+
+  df[3,1] <- -0.716 * x2 - 1.578 * x4 + 0.002
+  df[3,2] <- -0.716 * x1
+  df[3,3] <- -0.235
+  df[3,4] <- -1.578 * x1 + 1.132 * x7
+  df[3,5] <- 5.67
+
+  df[4,1] <- -x5
+  df[4,2] <- 1.0
+  df[4,3] <- 0.0
+  df[4,4] <- -1.0
+  df[4,5] <- -x1
+
+  df[5,1] <- x4
+  df[5,2] <- 0.0
+  df[5,3] <- -1.0
+  df[5,4] <- x1
+  df[5,5] <- -0.196
+
+  df
+}
+
+pcex_xstart <- c(2.5, -0.2, 0.05, 0.01, -0.1 )
+
+pcex_xsol <- c( 2.587674,  -0.223680,   0.054719,   0.013685,  -0.091730 )
+
+################################################################################
+
+# Fractional conversion in a chemical reactor
+# Shacham homotopy method (discrete changing of one or more parameters)
+# M. Shacham: Numerical Solution of Constrained Non-linear algebriac equations
+# International Journal for Numerical Methods in Engineering, 1986, pp.1455--1481.
+
+# solution should always be > 0
+
+# Problem 3, page 1466
+
+# 0 <= x(1) <=1
+# function is undefined for 0.8<=x<=1
+# radius of convergence is very small: 0.705<=x<=0.799
+
+frac1 <- function(x)   {
+    y <- numeric(1)
+	y[1] <- x[1]/(1-x[1])-5*log(0.4*(1-x[1])/(0.4-0.5*x[1])) + 4.45977
+	y
+}
+
+# transformed equation
+# all x[i] >= 0
+
+frac2 <- function(x){
+    y <- numeric(3)
+	y[1] = x[1] / x[2] - 5 * log(0.4*x[2]/x[3]) + 4.45977
+	y[2] = x[2] + x[1] - 1
+	y[3] = x[3] + 0.5*x[1] - 0.4
+	y
+}
+

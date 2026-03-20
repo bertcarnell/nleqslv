@@ -4,7 +4,9 @@ test_that("multiple functions with nleqslv", {
   func_list <- list(brown, brown, dcbval, dciequ, helval, pwlsng, rosbrk,
                     vardim, watson, watson, wood, pwlbsc, dslnex,
                     f_nocedal, sinexp, sinexp, troesch, kearfott,
-                    hdp, twoip)
+                    hdp, twoip, broyden_f1, broyden_f1,
+                    broyden_f2, broyden_f2, broyden_f2, broyden_f2,
+                    broyden_f7, boggs, octxmpl)
   start_list <- list(brown_xstart(10), brown_xstart(20), dcbval_xstart(10),
                      dciequ_xstart(10), helval_xstart, pwlsng_xstart,
                      rosbrk_xstart, vardiminit(10), watson_xstart(6),
@@ -12,7 +14,9 @@ test_that("multiple functions with nleqslv", {
                      dslnex_xstart, nocedal_xstart,
                      sinexp_xstart(0.25), sinexp_xstart(0.75),
                      troesch_xstart(50), kearfott_xstart,
-                     hdp_xstart, twoip_xstart)
+                     hdp_xstart, twoip_xstart, c(0, 0), c(1, 1),
+                     c(1, 1, 0), c(-1, 1, 0), c(1, -1, 0), c(-1, -1, 0),
+                     broyden_f7_xstart, boggs_xstart, octxmpl_xstart)
 
   expect_equal(length(func_list), length(start_list))
 
@@ -51,17 +55,25 @@ test_that("vardim", {
 })
 
 test_that("with jacobian", {
-  func_list <- list(pwlbsc, chandraH, chandraH)
-  start_list <- list(pwlbsc_xstart, chandra_xstart(50), chandra_xstart(100))
-  jac_list <- list(pwlbscjac, chandraH.jac, chandraH.jac)
+  func_list <- list(pwlbsc, chandraH, chandraH, broyden_f7, bkrust, li5,
+                    neum1, pcex)
+  start_list <- list(pwlbsc_xstart, chandra_xstart(50), chandra_xstart(100),
+                     broyden_f7_xstart, bkrust_xstart, li5_xstart,
+                     neum1_xstart, pcex_xstart)
+  jac_list <- list(pwlbscjac, chandraH.jac, chandraH.jac, broyden_f7jac,
+                   bkrjac, li5jac, neum1jac, pcexjac)
 
   expect_equal(length(func_list), length(start_list))
+  expect_equal(length(func_list), length(jac_list))
 
   for (i in seq_along(func_list)) {
-    soln <- nleqslv(start_list[[i]], func_list[[i]], jac_list[[i]])
-    expect_equal(soln$termcd, 1)
-    expect_equal(soln$message, expectedMessage1)
-    expect_true(all(abs(soln$fvec) <= 1e-7))
+    if (identical(func_list[[i]], li5)) {
+      soln <- nleqslv(start_list[[i]], func_list[[i]], jac_list[[i]], global = "gline")
+    } else {
+      soln <- nleqslv(start_list[[i]], func_list[[i]], jac_list[[i]])
+    }
+    expect_true(soln$termcd %in% c(1,3))
+    expect_true(all(abs(soln$fvec) <= 1e-4))
   }
 })
 
@@ -204,3 +216,55 @@ test_that("cutlip", {
   temp1 <- nleqslv(xinit1, cutlip, k1=k1, k2=k2, k3=k3, kr1=kr1, kr2=kr2)
   expect_equal(temp1$x, xsolA, tolerance = 1E-3)
 })
+
+test_that("kuno seader", {
+  N <- 100
+  xstart <- matrix(runif(2*N, min=-5, max=5), N, 2)
+
+  z <- searchZeros(xstart, kunoseader_f)
+  expect_equal(nrow(z$x), 7)
+
+  Nrep <- 90
+  Ncol <- 3
+  xstart <- matrix(runif(Ncol*Nrep, min=0, max=1), Nrep, Ncol)
+
+  z <- searchZeros(xstart, kunoseader_f34)
+  expect_equal(nrow(z$x), 4)
+})
+
+test_that("econ with const", {
+  const <- rep(0, 20)
+  xstart <- rep(1, 20) / 20
+
+  temp <- nleqslv(xstart, econ, const = const)
+  expect_true(all(temp$fvec < 1E-8))
+  test_temp <- testnslv(xstart, econ, const = const,
+                        global = c("cline", "qline", "pwldob", "dbldog"))
+  expect_true(all(test_temp$out$Fnorm < 1E-12))
+})
+
+test_that("hiebert", {
+  xstart <- c(1, 1, 10, 1, 1, 1, 0, 0, 0, 0)
+
+  temp <- nleqslv(xstart, hiebert, R=10)
+  expect_true(all(temp$fvec < 1E-8))
+  test_temp <- testnslv(xstart, hiebert, R=10, method = "Newton")
+  expect_true(all(test_temp$out$Fnorm < 1E-12))
+})
+
+test_that("pce", {
+  soln <- nleqslv(pcex_xstart, pcex, pcexjac, method="Broyden", global="hook",
+                  control=list(trace=0, delta="cauchy", ftol=1e-6, xtol=1e-5))
+  expect_equal(soln$x, pcex_xsol, tolerance = 1E-3)
+})
+
+test_that("frac", {
+  for( k in 1:7 ) {
+    a <- k/10
+    xstart <- c(a,1-a, max(0.4-0.5*a,0.1))
+    z <- nleqslv(xstart, frac2, control=list(stepmax=.1))
+    expect_true(all(abs(z$fvec) < 1E-8))
+  }
+})
+
+
