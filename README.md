@@ -10,6 +10,7 @@ Original Author:  Berend Hasselman
 
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv)
+[![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
   
   
