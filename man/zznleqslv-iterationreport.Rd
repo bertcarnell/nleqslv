@@ -2,8 +2,7 @@
 % Please edit documentation in R/nleqslv-iterationreport.R
 \name{zznleqslv-iterationreport}
 \alias{zznleqslv-iterationreport}
-\alias{Iteration}
-\alias{report}
+\alias{Iteration-report}
 \title{Detailed iteration report of nleqslv}
 \description{
 The format of the iteration report provided by nleqslv when the \code{trace}

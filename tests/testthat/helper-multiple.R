@@ -39,6 +39,8 @@ dcbval <- function (x) {
 
 dcbval_xstart <- function(n) c(1:n) * (c(1:n)-n-1)/(n+1)^2
 
+################################################################################
+
 # function 29
 # Discrete integral equation
 
@@ -75,6 +77,8 @@ dciequ <- function(x) {
 
 dciequ_xstart <- function(n) c(1:n) * (c(1:n)-1-n)/(n+1)^2
 
+################################################################################
+
 # function 7
 # Helical valley function
 
@@ -102,6 +106,8 @@ helval <- function(x) {
 
 helval_xstart <- c(-1,0,0)
 
+################################################################################
+
 # Powell singular function
 # function 13
 
@@ -118,6 +124,8 @@ pwlsng <- function(x) {
 
 pwlsng_xstart <- c(3, -1, 0, 1)
 
+################################################################################
+
 # Rosenbrock function
 # function 1
 
@@ -132,6 +140,8 @@ rosbrk <- function(x) {
 }
 
 rosbrk_xstart <- c(-1.2, 1)
+
+################################################################################
 
 # vardim function
 # Function 25
@@ -154,6 +164,8 @@ vardim <- function(x) {
 vardiminit <- function (n) {
   x <- (1 - c(1:n) / n)
 }
+
+################################################################################
 
 # Watson function
 # code adapted from test problems f90 for Minpack
@@ -197,6 +209,8 @@ watson <- function(x) {
 
 watson_xstart <- function(n) numeric(n)
 
+################################################################################
+
 # Wood function
 # function 14
 
@@ -218,6 +232,8 @@ wood <- function(x) {
 }
 
 wood_xstart <- c(-3,-1,-3,-1)
+
+################################################################################
 
 # Powell Badly scaled function
 # function 3
@@ -248,6 +264,8 @@ pwlbscjac <- function(x) {
 
 pwlbsc_xstart <- c(0,1)
 
+################################################################################
+
 # Dennis & Schnabel,1996,"Numerical methods for unconstrained optimization and nonlinear equations", SIAM
 # example 6.5.1 page 149
 
@@ -273,6 +291,8 @@ jacdsln <- function(x) {
 # give parameters names which must appear in results
 dslnex_xstart <- c(x1=1.5, x2=2)
 
+################################################################################
+
 # Nocedal & Wright (2006) example 11.31
 
 f_nocedal <- function(x) {
@@ -294,6 +314,8 @@ jac_nocedal <- function(x) {
 }
 
 nocedal_xstart <- c(-1, 2)
+
+################################################################################
 
 # from  BB in Journal of Statistical Software
 # from Jstatsoft paper on BB package (Barzila-Borwein)
@@ -340,6 +362,8 @@ chandraH.jac <- function(x) {
 
 chandra_xstart <- function(n) runif(n)
 
+################################################################################
+
 # last example in
 # Hirsch, Pardalos, Resende: Solving systems of nonlinear equations with continuous GRASP
 # 0.25 <= x[1] <= 1 and 1.5 <= x[2] <= 2*pi
@@ -360,6 +384,8 @@ sinexp_xstart <- function(g) {
   xstart[2] <-  (g*1.25 + (1-g)*pi)/2
   xstart
 }
+
+################################################################################
 
 # from  BB in Journal of Statistical Software
 # from Jstatsoft paper on BB package (Barzila-Borwein)
@@ -403,9 +429,7 @@ troesch_xstart <- function(n) runif(n)
 
 ################################################################################
 
-
 # intersection of circles
-
 # http://paulbourke.net/geometry/circlesphere/
 
 #    The following note describes how to find the intersection point(s) between two circles on a plane,
@@ -555,6 +579,8 @@ kearfott <- function(x) {
 
 kearfott_xstart <- runif(8, -1, 1)
 
+################################################################################
+
 # A high-degree polynomial system (section 4.3 Problem 12)
 # There are 12 real roots (and 126 complex roots to this system!)
 
@@ -612,6 +638,8 @@ broyden_f2 <- function(par) {
 
   f
 }
+
+################################################################################
 
 # Exercise 7 (1 solution)
 broyden_f7 <- function(par) {

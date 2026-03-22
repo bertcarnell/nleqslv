@@ -18,7 +18,7 @@
 #' of function values / 2} \item{list("Largest |f|")}{infinity norm of
 #' \eqn{f(x)}{f(x)} at the current point} }
 #'
-#' @aliases Iteration report
+#' @aliases Iteration-report
 #' @section Report for linesearch methods: A sample iteration report for the
 #' linesearch global methods (\code{cline}, \code{qline} and \code{gline}) is
 #' (some intercolumn space has been removed to make the table fit)

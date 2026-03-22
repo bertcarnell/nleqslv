@@ -120,7 +120,7 @@ double dogleg method as described in Dennis and Schnabel (1996)}
 as developed by Powell (1970).} \item{list("hook")}{a trust region method
 described by Dennis and Schnabel (1996) as \emph{The locally constrained
 optimal (\dQuote{hook}) step}.  It is equivalent to a Levenberg-Marquardt
-algorithm as described in \enc{MoréMore} (1978) and Nocedal and Wright
+algorithm as described in \enc{MoréMore}{MoreMore} (1978) and Nocedal and Wright
 (2006).} \item{list("none")}{Only a pure local Newton or Broyden iteration
 is used.  The maximum stepsize (see below) is taken into account.  The
 default maximum number of iterations (see below) is set to 20.} } The double
@@ -153,7 +153,7 @@ norms of the columns of the Jacobian matrix.  When a new Jacobian is
 computed, the scaling values will be set to the euclidean norm of the
 corresponding column if that is larger than the current scaling value.  Thus
 the scaling values will not decrease during the iteration.  This is the
-method described in \enc{MoréMore} (1978).  Usually manual scaling is
+method described in \enc{MoréMore}{MoreMore} (1978).  Usually manual scaling is
 preferable.} } }
 
 \subsection{Jacobian}{
@@ -220,7 +220,7 @@ has been specified the default is 20.}
 
 \item{list("trace")}{Non-negative integer. A value of 1 will give a detailed
 report of the progress of the iteration. For a description see
-\code{\link{Iteration report}}.}
+\code{\link{Iteration-report}}.}
 
 \item{list("chkjac")}{A logical value indicating whether to check a user
 supplied Jacobian, if supplied. The default value is \code{FALSE}. The first
@@ -377,7 +377,7 @@ Mathematical Software}, \bold{23}, 2, pp. 174--195.
 Dennis, J.E. Jr and Schnabel, R.B. (1996), \emph{Numerical Methods for
 Unconstrained Optimization and Nonlinear Equations}, Siam.
 
-\enc{MoréMore}, J.J. (1978), The Levenberg-Marquardt Algorithm,
+\enc{MoréMore}{MoreMore}, J.J. (1978), The Levenberg-Marquardt Algorithm,
 Implementation and Theory, In \emph{Numerical Analysis}, G.A. Watson (Ed.),
 Lecture Notes in Mathematics 630, Springer-Verlag, pp. 105--116.
 

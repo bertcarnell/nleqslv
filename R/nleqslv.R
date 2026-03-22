@@ -11,26 +11,26 @@
 
 
 #' Solving systems of nonlinear equations with Broyden or Newton
-#' 
+#'
 #' The function solves a system of nonlinear equations with either a Broyden or
 #' a full Newton method. It provides line search and trust region global
 #' strategies for difficult systems.
-#' 
+#'
 #' The algorithms implemented in \code{nleqslv} are based on Dennis and
 #' Schnabel (1996).
-#' 
+#'
 #' \subsection{Methods}{
-#' 
+#'
 #' Method \code{Broyden} starts with a computed Jacobian of the function and
 #' then updates this Jacobian after each successful iteration using the
 #' so-called Broyden update. This method often shows super linear convergence
 #' towards a solution. When \code{nleqslv} determines that it cannot continue
 #' with the current Broyden matrix it will compute a new Jacobian.
-#' 
+#'
 #' Method \code{Newton} calculates a Jacobian of the function \code{fn} at each
 #' iteration. Close to a solution this method will usually show quadratic
 #' convergence.
-#' 
+#'
 #' Both methods apply a so-called (backtracking) global strategy to find a
 #' better (more acceptable) iterate.  The function criterion used by the
 #' algorithm is half of the sum of squares of the function values and
@@ -41,13 +41,13 @@
 #' in Lapack. The Broyden method applies a rank-1 update to the Jacobian at the
 #' end of each iteration and is based on a simplified and modernized version of
 #' the algorithm described in Reichel and Gragg (1990). }
-#' 
+#'
 #' \subsection{Global strategies}{
-#' 
+#'
 #' When applying a full Newton or Broyden step does not yield a sufficiently
 #' smaller function criterion value \code{nleqslv} will attempt to decrease the
 #' steplength using one of several so-called global strategies.
-#' 
+#'
 #' The \code{global} argument indicates which global strategy to use or to use
 #' no global strategy \describe{ \item{list("cline")}{a cubic line search}
 #' \item{list("qline")}{a quadratic line search} \item{list("gline")}{a
@@ -57,26 +57,26 @@
 #' as developed by Powell (1970).} \item{list("hook")}{a trust region method
 #' described by Dennis and Schnabel (1996) as \emph{The locally constrained
 #' optimal (\dQuote{hook}) step}.  It is equivalent to a Levenberg-Marquardt
-#' algorithm as described in \enc{MoréMore} (1978) and Nocedal and Wright
+#' algorithm as described in \enc{MoréMore}{MoreMore} (1978) and Nocedal and Wright
 #' (2006).} \item{list("none")}{Only a pure local Newton or Broyden iteration
 #' is used.  The maximum stepsize (see below) is taken into account.  The
 #' default maximum number of iterations (see below) is set to 20.} } The double
 #' dogleg method is the default global strategy employed by this package.
-#' 
+#'
 #' Which global strategy to use in a particular situation is a matter of trial
 #' and error. When one of the trust region methods fails, one of the line
 #' search strategies should be tried. Sometimes a trust region will work and
 #' sometimes a line search method; neither has a clear advantage but in many
 #' cases the double dogleg method works quite well.
-#' 
+#'
 #' When the function to be solved returns non-finite function values for a
 #' parameter vector \code{x} and the algorithm is \emph{not} evaluating a
 #' numerical Jacobian, then any non-finite values will be replaced by a large
 #' number forcing the algorithm to backtrack, i.e. decrease the line search
 #' factor or decrease the trust region radius. }
-#' 
+#'
 #' \subsection{Scaling}{
-#' 
+#'
 #' The elements of vector \code{x} may be scaled during the search for a zero
 #' of \code{fn}. The \code{xscalm} argument provides two possibilities for
 #' scaling \describe{ \item{list("fixed")}{the scaling factors are set to the
@@ -84,58 +84,58 @@
 #' the iterations.  The scaling factor of any element of \code{x} should be set
 #' to the inverse of the typical value of that element of \code{x}, ensuring
 #' that all elements of \code{x} are approximately equal in size.}
-#' 
+#'
 #' \item{list("auto")}{the scaling factors are calculated from the euclidean
 #' norms of the columns of the Jacobian matrix.  When a new Jacobian is
 #' computed, the scaling values will be set to the euclidean norm of the
 #' corresponding column if that is larger than the current scaling value.  Thus
 #' the scaling values will not decrease during the iteration.  This is the
-#' method described in \enc{MoréMore} (1978).  Usually manual scaling is
+#' method described in \enc{MoréMore}{MoreMore} (1978).  Usually manual scaling is
 #' preferable.} } }
-#' 
+#'
 #' \subsection{Jacobian}{
-#' 
+#'
 #' When evaluating a numerical Jacobian, an error message will be issued on
 #' detecting non-finite function values. An error message will also be issued
 #' when a user supplied jacobian contains non-finite entries.
-#' 
+#'
 #' When the \code{jacobian} argument is set to \code{TRUE} the final Jacobian
 #' or Broyden matrix will be returned in the return list. The default value is
 #' \code{FALSE}; i.e. to not return the final matrix. There is no guarantee
 #' that the final Broyden matrix resembles the actual Jacobian.
-#' 
+#'
 #' The package can cope with a singular or ill-conditioned Jacobian if needed
 #' by setting the \code{allowSingular} component of the \code{control}
 #' argument. The method used is described in Dennis and Schnabel (1996); it is
 #' equivalent to a Levenberg-Marquardt type adjustment with a small damping
 #' factor. \emph{There is no guarantee that this method will be successful.}
 #' Warning: \emph{\code{nleqslv} may report spurious convergence in this case.}
-#' 
+#'
 #' By default \code{nleqslv} returns an error if a Jacobian becomes singular or
 #' very ill-conditioned. A Jacobian is considered to be very ill-conditioned
 #' when the estimated inverse condition is less than or equal to a specified
 #' tolerance with a default value equal to \eqn{10^{-12}}{1e-12}; this can be
 #' changed and made smaller with the \code{cndtol} item of the \code{control}
 #' argument. \emph{There is no guarantee that any change will be effective.} }
-#' 
+#'
 #' \subsection{Control options}{
-#' 
+#'
 #' The \code{control} argument is a named list that can supply any of the
 #' following components: \describe{ \item{list("xtol")}{The relative steplength
 #' tolerance.  When the relative steplength of all scaled x values is smaller
 #' than this value convergence is declared. The default value is
 #' \eqn{10^{-8}}{1e-8}.  }
-#' 
+#'
 #' \item{list("ftol")}{The function value tolerance.  Convergence is declared
 #' when the largest absolute function value is smaller than \code{ftol}.  The
 #' default value is \eqn{10^{-8}}{1e-8}.  }
-#' 
+#'
 #' \item{list("btol")}{The backtracking tolerance.  When the relative
 #' steplength in a backtracking step to find an acceptable point is smaller
 #' than the backtracking tolerance, the backtracking is terminated.  In the
 #' \code{Broyden} method a new Jacobian will be calculated if the Jacobian is
 #' outdated.  The default value is \eqn{10^{-3}}{1e-3}.  }
-#' 
+#'
 #' \item{list("cndtol")}{The tolerance of the test for ill conditioning of the
 #' Jacobian or Broyden approximation. If less than the machine precision it
 #' will be silently set to the machine precision.  When the estimated inverse
@@ -143,27 +143,27 @@
 #' value of \code{cndtol} the matrix is deemed to be ill-conditioned, in which
 #' case an error will be reported if the \code{allowSingular} component is set
 #' to \code{FALSE}.  The default value is \eqn{10^{-12}}{1e-12}.  }
-#' 
+#'
 #' \item{list("sigma")}{Reduction factor for the geometric line search. The
 #' default value is 0.5.}
-#' 
+#'
 #' \item{list("scalex")}{a vector of scaling values for the parameters.  The
 #' inverse of a scale value is an indication of the size of a parameter.  The
 #' default value is 1.0 for all scale values.}
-#' 
+#'
 #' \item{list("maxit")}{The maximum number of major iterations.  The default
 #' value is 150 if a global strategy has been specified.  If no global strategy
 #' has been specified the default is 20.}
-#' 
+#'
 #' \item{list("trace")}{Non-negative integer. A value of 1 will give a detailed
 #' report of the progress of the iteration. For a description see
-#' \code{\link{Iteration report}}.}
-#' 
+#' \code{\link{Iteration-report}}.}
+#'
 #' \item{list("chkjac")}{A logical value indicating whether to check a user
 #' supplied Jacobian, if supplied. The default value is \code{FALSE}. The first
 #' 10 errors are printed.  The code for this check is derived from the code in
 #' Bouaricha and Schnabel (1997).}
-#' 
+#'
 #' \item{list("delta")}{Initial (scaled) trust region radius.  A value of
 #' \eqn{-1.0} or \code{"cauchy"} is replaced by the length of the Cauchy step
 #' in the initial point.  A value of \eqn{-2.0} or \code{"newton"} is replaced
@@ -174,21 +174,21 @@
 #' smaller of the value supplied or the maximum stepsize.  If it is not numeric
 #' and not one of the permitted character strings then an error message will be
 #' issued.  The default is \eqn{-2.0}.}
-#' 
+#'
 #' \item{list("stepmax")}{Maximum scaled stepsize.  If this is negative then
 #' the maximum stepsize is set to the largest positive representable number.
 #' The default is \eqn{-1.0}, so there is no default maximum stepsize.}
-#' 
+#'
 #' \item{list("dsub")}{Number of non zero subdiagonals of a banded Jacobian.
 #' The default is to assume that the Jacobian is \emph{not} banded.  Must be
 #' specified if \code{dsuper} has been specified and must be larger than zero
 #' when \code{dsuper} is zero.}
-#' 
+#'
 #' \item{list("dsuper")}{Number of non zero super diagonals of a banded
 #' Jacobian.  The default is to assume that the Jacobian is \emph{not} banded.
 #' Must be specified if \code{dsub} has been specified and must be larger than
 #' zero when \code{dsub} is zero.}
-#' 
+#'
 #' \item{list("allowSingular")}{A logical value indicating if a small
 #' correction to the Jacobian when it is singular or too ill-conditioned is
 #' allowed.  If the correction is less than \code{100*.Machine$double.eps} the
@@ -197,7 +197,7 @@
 #' in Dennis and Schnabel (1996) on page 151.  It may be necessary to choose a
 #' higher value for \code{cndtol} to enforce the correction.  The default value
 #' is \code{FALSE}.  } } }
-#' 
+#'
 #' @param x A numeric vector with an initial guess of the root of the function.
 #' @param fn A function of \code{x} returning a vector of function values with
 #' the same length as the vector \code{x}.
@@ -252,40 +252,41 @@
 #' TENSOLVE: A Software Package for Solving Systems of Nonlinear Equations and
 #' Nonlinear Least-squares Problems Using Tensor Methods, \emph{Transactions on
 #' Mathematical Software}, \bold{23}, 2, pp. 174--195.
-#' 
+#'
 #' Dennis, J.E. Jr and Schnabel, R.B. (1996), \emph{Numerical Methods for
 #' Unconstrained Optimization and Nonlinear Equations}, Siam.
-#' 
-#' \enc{MoréMore}, J.J. (1978), The Levenberg-Marquardt Algorithm,
+#'
+#' \enc{MoréMore}{MoreMore}, J.J. (1978), The Levenberg-Marquardt Algorithm,
 #' Implementation and Theory, In \emph{Numerical Analysis}, G.A. Watson (Ed.),
 #' Lecture Notes in Mathematics 630, Springer-Verlag, pp. 105--116.
-#' 
+#'
 #' Golub, G.H and C.F. Van Loan (1996), Matrix Computations (3rd edition), The
 #' John Hopkins University Press.
-#' 
+#'
 #' Higham, N.J. (2002), Accuracy and Stability of Numerical Algorithms, 2nd
 #' ed., SIAM, pp. 10--11.
-#' 
+#'
 #' Nocedal, J. and Wright, S.J. (2006), \emph{Numerical Optimization},
 #' Springer.
-#' 
+#'
 #' Powell, M.J.D. (1970), A hybrid method for nonlinear algebraic equations, In
 #' \emph{Numerical Methods for Nonlinear Algebraic Equations}, P. Rabinowitz
 #' (Ed.), Gordon & Breach.
-#' 
+#'
 #' Powell, M.J.D. (1970), A Fortran subroutine for solving systems nonlinear
 #' equations, In \emph{Numerical Methods for Nonlinear Algebraic Equations}, P.
 #' Rabinowitz (Ed.), Gordon & Breach.
-#' 
+#'
 #' % QRupdate: a Fortran library for fast updating of QR and Cholesky
 #' decompositions, % \url{http://sourceforge.net/projects/qrupdate/}.
-#' 
+#'
 #' Reichel, L. and W.B. Gragg (1990), Algorithm 686: FORTRAN subroutines for
 #' updating the QR decomposition, \emph{ACM Trans. Math. Softw.}, \bold{16}, 4,
 #' pp. 369--377.
 #' @keywords nonlinear optimize
+#' @useDynLib nleqslv, .registration=TRUE, .fixes="C_"
 #' @examples
-#' 
+#'
 #' # Dennis Schnabel example 6.5.1 page 149
 #' dslnex <- function(x) {
 #'     y <- numeric(2)
@@ -293,7 +294,7 @@
 #'     y[2] <- exp(x[1]-1) + x[2]^3 - 2
 #'     y
 #' }
-#' 
+#'
 #' jacdsln <- function(x) {
 #'     n <- length(x)
 #'     Df <- matrix(numeric(n*n),n,n)
@@ -301,10 +302,10 @@
 #'     Df[1,2] <- 2*x[2]
 #'     Df[2,1] <- exp(x[1]-1)
 #'     Df[2,2] <- 3*x[2]^2
-#' 
+#'
 #'     Df
 #' }
-#' 
+#'
 #' BADjacdsln <- function(x) {
 #'     n <- length(x)
 #'     Df <- matrix(numeric(n*n),n,n)
@@ -312,50 +313,50 @@
 #'     Df[1,2] <- 2*x[2]
 #'     Df[2,1] <- exp(x[1]-1)
 #'     Df[2,2] <- 5*x[2]^2
-#' 
+#'
 #'     Df
 #' }
-#' 
+#'
 #' xstart <- c(2,0.5)
 #' fstart <- dslnex(xstart)
 #' xstart
 #' fstart
-#' 
+#'
 #' # a solution is c(1,1)
-#' 
+#'
 #' nleqslv(xstart, dslnex, control=list(btol=.01))
-#' 
+#'
 #' # Cauchy start
 #' nleqslv(xstart, dslnex, control=list(trace=1,btol=.01,delta="cauchy"))
-#' 
+#'
 #' # Newton start
 #' nleqslv(xstart, dslnex, control=list(trace=1,btol=.01,delta="newton"))
-#' 
+#'
 #' # final Broyden approximation of Jacobian (quite good)
 #' z <- nleqslv(xstart, dslnex, jacobian=TRUE,control=list(btol=.01))
 #' z$x
 #' z$jac
 #' jacdsln(z$x)
-#' 
+#'
 #' # different initial start; not a very good final approximation
 #' xstart <- c(0.5,2)
 #' z <- nleqslv(xstart, dslnex, jacobian=TRUE,control=list(btol=.01))
 #' z$x
 #' z$jac
 #' jacdsln(z$x)
-#' 
+#'
 #' \dontrun{
 #' # no global strategy but limit stepsize
 #' # but look carefully: a different solution is found
 #' nleqslv(xstart, dslnex, method="Newton", global="none", control=list(trace=1,stepmax=5))
-#' 
+#'
 #' # but if the stepsize is limited even more the c(1,1) solution is found
 #' nleqslv(xstart, dslnex, method="Newton", global="none", control=list(trace=1,stepmax=2))
-#' 
+#'
 #' # Broyden also finds the c(1,1) solution when the stepsize is limited
 #' nleqslv(xstart, dslnex, jacdsln, method="Broyden", global="none", control=list(trace=1,stepmax=2))
 #' }
-#' 
+#'
 #' # example with a singular jacobian in the initial guess
 #' f <- function(x) {
 #'     y <- numeric(3)
@@ -364,7 +365,7 @@
 #'     y[3] <- x[2] + x[3] - 4
 #'     return(y)
 #' }
-#' 
+#'
 #' Jac <- function(x) {
 #'     J <- matrix(0,nrow=3,ncol=3)
 #'     J[,1] <- c(1-x[2],1-x[3],0)
@@ -372,19 +373,19 @@
 #'     J[,3] <- c(0,1-x[1],1)
 #'     J
 #' }
-#' 
+#'
 #' # exact solution
 #' xsol <- c(-.5, 5/3 , 7/3)
 #' xsol
-#' 
+#'
 #' xstart <- c(1,2,3)
 #' J <- Jac(xstart)
 #' J
 #' rcond(J)
-#' 
+#'
 #' z <- nleqslv(xstart,f,Jac, method="Newton",control=list(trace=1,allowSingular=TRUE))
 #' all.equal(z$x,xsol)
-#' 
+#'
 #' @export nleqslv
 nleqslv <- function(x, fn, jac = NULL, ...,
                     method = c("Broyden", "Newton"),

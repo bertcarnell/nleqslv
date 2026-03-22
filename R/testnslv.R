@@ -1,16 +1,16 @@
 #' Test different methods for solving with \code{nleqslv}
-#' 
+#'
 #' The function tests different methods and global strategies for solving a
 #' system of nonlinear equations with \code{nleqslv}
-#' 
+#'
 #' The function solves the function \code{fn} with \code{\link{nleqslv}} for
 #' the specified methods and global strategies. When argument \code{Nrep} has
 #' been set to a number greater than or equal to 1, repetitions of the solving
 #' process are performed and the used CPU time in seconds is recorded.
-#' 
+#'
 #' If checking a user supplied jacobian is enabled, then \code{testnslv} will
 #' stop immediately when a possibly incorrect jacobian is detected.
-#' 
+#'
 #' @param x A numeric vector with an initial guess of the root.
 #' @param fn A function of \code{x} returning the function values.
 #' @param jac A function to return the Jacobian for the \code{fn} function.
@@ -55,7 +55,7 @@
 #' strategy will be recorded in the final dataframe.
 #' @keywords nonlinear optimize
 #' @examples
-#' 
+#'
 #' dslnex <- function(x) {
 #'     y <- numeric(2)
 #'     y[1] <- x[1]^2 + x[2]^2 - 2
@@ -69,7 +69,7 @@
 #' xstart <- c(2.0,0.5)
 #' fstart <- dslnex(xstart)
 #' testnslv(xstart,dslnex)
-#' 
+#'
 #' @export testnslv
 testnslv <- function(x, fn, jac=NULL, ...,
                             method=c("Newton", "Broyden"),
@@ -159,15 +159,15 @@ testnslv <- function(x, fn, jac=NULL, ...,
 
 
 #' Printing the result of \code{testnslv}
-#' 
+#'
 #' Print method for \code{test.nleqslv} objects.
-#' 
+#'
 #' This is the \code{print} method for objects inheriting from class
 #' \code{test.nleqslv}. It prints the call to \code{testnslv} followed by the
 #' description of the experiment (if the \code{title} argument was specified in
 #' the call to \code{testnslv}) and the dataframe containing the results of
 #' \code{testnslv}.
-#' 
+#'
 #' @aliases print print.test.nleqslv
 #' @param x a \code{test.nleqslv} object
 #' @param digits specifies the minimum number of significant digits to be
@@ -177,8 +177,9 @@ testnslv <- function(x, fn, jac=NULL, ...,
 #' @param \dots additional arguments to \code{print}.
 #' @return It returns the object \code{x} invisibly.
 #' @keywords print
+#' @export
 #' @examples
-#' 
+#'
 #' dslnex <- function(x) {
 #'     y <- numeric(2)
 #'     y[1] <- x[1]^2 + x[2]^2 - 2
@@ -189,7 +190,7 @@ testnslv <- function(x, fn, jac=NULL, ...,
 #' fstart <- dslnex(xstart)
 #' z <- testnslv(xstart,dslnex)
 #' print(z)
-#' 
+#'
 print.test.nleqslv <- function(x, digits=4, width.cutoff=45L, ...) {
     if(!inherits(x, "test.nleqslv"))
         stop("method is only for test.nleqslv objects")
