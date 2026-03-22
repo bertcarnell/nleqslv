@@ -17,6 +17,8 @@ s <- hexSticker::sticker(
   package="nleqslv", p_size=8, p_fontface = "plain", p_family = "mono",
   s_x=1.1, s_y=.75, s_width=1.3, s_height=1,
   h_fill="#1a2b3c", h_color="#cccccc",
-  filename="etc/nleqslv_sticker.svg")
+  filename="logo.svg")
 
 plot(s)
+
+# used an online favicon generator because pkgdown::build_favicon was not working

@@ -1,4 +1,4 @@
-# nleqslv
+# nleqslv <a href="https://bertcarnell.github.io/nleqslv/"><img src="man/figures/logo.svg" align="right" height="139" alt="nleqslv website" /></a>
 
 Solve a system of nonlinear equations using a Broyden or a Newton method with a 
 choice of global strategies such as line search and trust region.  There are 
@@ -13,4 +13,4 @@ Original Author:  Berend Hasselman
 [![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
   
-  
+

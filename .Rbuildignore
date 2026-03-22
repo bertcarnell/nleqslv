@@ -4,6 +4,7 @@
 ^LICENSE$
 ^README.md$
 etc/*
+^logo.svg$
 
 ^codecov\.yml$
 ^\.github$
