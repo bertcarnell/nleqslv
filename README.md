@@ -8,3 +8,8 @@ a singular or ill-conditioned Jacobian.
 
 Original Author:  Berend Hasselman
 
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv)
+<!-- badges: end -->
+  
+  
