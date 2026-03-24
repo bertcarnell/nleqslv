@@ -22,20 +22,20 @@ removing duplicate rounded solutions.}
 \value{
 If no solutions are found \code{NULL} is returned. Otherwise a list
 containing the following components is returned \describe{
-\item{list("x")}{a matrix with each row containing a unique solution
-(unrounded)} \item{list("xfnorm")}{a vector of the function criterion
+\item{\code{x}}{a matrix with each row containing a unique solution
+(unrounded)} \item{\code{xfnorm}}{a vector of the function criterion
 associated with each row of the solution matrix \code{x}.}
-\item{list("fnorm")}{a vector containing the function criterion for every
-converged result} \item{list("idxcvg")}{a vector containing the row indices
+\item{\code{fnorm}}{a vector containing the function criterion for every
+converged result} \item{\code{idxcvg}}{a vector containing the row indices
 of the matrix of initial estimates for which function value convergence was
-achieved} \item{list("idxxtol")}{a vector containing the row indices of the
+achieved} \item{\code{idxxtol}}{a vector containing the row indices of the
 matrix of initial estimates for which x-value convergence was achieved}
-\item{list("idxnocvg")}{a vector containing the row indices of the matrix of
+\item{\code{idxnocvg}}{a vector containing the row indices of the matrix of
 initial estimates which lead to an \code{nleqslv} termination code > 2}
-\item{list("idxfatal")}{a vector containing the row indices of the matrix of
+\item{\code{idxfatal}}{a vector containing the row indices of the matrix of
 initial estimates for which a fatal error occurred that made \code{nleqslv}
-stop} \item{list("xstart")}{a matrix of the initial estimates corresponding
-to the solution matrix} \item{list("cvgstart")}{a matrix of all initial
+stop} \item{\code{xstart}}{a matrix of the initial estimates corresponding
+to the solution matrix} \item{\code{cvgstart}}{a matrix of all initial
 estimates for which convergence was achieved} }
 }
 \description{

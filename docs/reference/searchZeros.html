@@ -69,36 +69,36 @@ removing duplicate rounded solutions.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>If no solutions are found <code>NULL</code> is returned. Otherwise a list
-containing the following components is returned</p><dl><dt>list("x")</dt>
+containing the following components is returned</p><dl><dt><code>x</code></dt>
 <dd><p>a matrix with each row containing a unique solution
 (unrounded)</p></dd>
- <dt>list("xfnorm")</dt>
+ <dt><code>xfnorm</code></dt>
 <dd><p>a vector of the function criterion
 associated with each row of the solution matrix <code>x</code>.</p></dd>
 
-<dt>list("fnorm")</dt>
+<dt><code>fnorm</code></dt>
 <dd><p>a vector containing the function criterion for every
 converged result</p></dd>
- <dt>list("idxcvg")</dt>
+ <dt><code>idxcvg</code></dt>
 <dd><p>a vector containing the row indices
 of the matrix of initial estimates for which function value convergence was
 achieved</p></dd>
- <dt>list("idxxtol")</dt>
+ <dt><code>idxxtol</code></dt>
 <dd><p>a vector containing the row indices of the
 matrix of initial estimates for which x-value convergence was achieved</p></dd>
 
-<dt>list("idxnocvg")</dt>
+<dt><code>idxnocvg</code></dt>
 <dd><p>a vector containing the row indices of the matrix of
 initial estimates which lead to an <code>nleqslv</code> termination code &gt; 2</p></dd>
 
-<dt>list("idxfatal")</dt>
+<dt><code>idxfatal</code></dt>
 <dd><p>a vector containing the row indices of the matrix of
 initial estimates for which a fatal error occurred that made <code>nleqslv</code>
 stop</p></dd>
- <dt>list("xstart")</dt>
+ <dt><code>xstart</code></dt>
 <dd><p>a matrix of the initial estimates corresponding
 to the solution matrix</p></dd>
- <dt>list("cvgstart")</dt>
+ <dt><code>cvgstart</code></dt>
 <dd><p>a matrix of all initial
 estimates for which convergence was achieved</p></dd>
 

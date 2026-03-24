@@ -97,67 +97,67 @@ several possibly abbreviated items.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>testnslv</code> returns an object of class <code>"test.nleqslv"</code>
-which is a list containing the following elements</p><dl><dt>list("call")</dt>
+which is a list containing the following elements</p><dl><dt><code>call</code></dt>
 <dd><p>the matched call</p></dd>
- <dt>list("out")</dt>
+ <dt><code>out</code></dt>
 <dd><p>a dataframe
-containing the results with the following columns</p><dl><dt>list("Method")</dt>
+containing the results with the following columns</p><dl><dt><code>Method</code></dt>
 <dd><p>method used.</p></dd>
- <dt>list("Global")</dt>
+ <dt><code>Global</code></dt>
 <dd><p>global strategy
 used.</p></dd>
- <dt>list("termcd")</dt>
+ <dt><code>termcd</code></dt>
 <dd><p>termination code of <code>nleqslv</code>.</p></dd>
 
-<dt>list("Fcnt")</dt>
+<dt><code>Fcnt</code></dt>
 <dd><p>number of function evaluations used by the method and
 global strategy.  This excludes function evaluations made when computing a
 numerical Jacobian.</p></dd>
- <dt>list("Jcnt")</dt>
+ <dt><code>Jcnt</code></dt>
 <dd><p>number of Jacobian evaluations.</p></dd>
 
-<dt>list("Iter")</dt>
+<dt><code>Iter</code></dt>
 <dd><p>number of outer iterations used by the algorithm.</p></dd>
 
-<dt>list("Message")</dt>
+<dt><code>Message</code></dt>
 <dd><p>a string describing the termination code in an
 abbreviated form.</p></dd>
- <dt>list("Fnorm")</dt>
+ <dt><code>Fnorm</code></dt>
 <dd><p>square of the euclidean norm of the
 vector of function results divided by 2.</p></dd>
- <dt>list("cpusecs")</dt>
+ <dt><code>cpusecs</code></dt>
 <dd><p>CPU seconds
 used by the requested number of repetitions (only present when argument
 <code>Nrep</code> is not 0).</p></dd>
 
 </dl><p></p></dd>
- <dt>list("title")</dt>
+ <dt><code>title</code></dt>
 <dd><p>the description if
 specified</p></dd>
 
-</dl><p>The abbreviated strings are</p><dl><dt>list("Fcrit")</dt>
+</dl><p>The abbreviated strings are</p><dl><dt><code>Fcrit</code></dt>
 <dd><p>Convergence of function values has been achieved.</p></dd>
 
-<dt>list("Xcrit")</dt>
+<dt><code>Xcrit</code></dt>
 <dd><p>This means that the relative distance between two
 consecutive x-values is smaller than <code>xtol</code>.</p></dd>
 
-<dt>list("Stalled")</dt>
+<dt><code>Stalled</code></dt>
 <dd><p>The algorithm cannot find an acceptable new point.</p></dd>
 
-<dt>list("Maxiter")</dt>
+<dt><code>Maxiter</code></dt>
 <dd><p>Iteration limit <code>maxit</code> exceeded.</p></dd>
 
-<dt>list("Illcond")</dt>
+<dt><code>Illcond</code></dt>
 <dd><p>Jacobian is too ill-conditioned.</p></dd>
 
-<dt>list("Singular")</dt>
+<dt><code>Singular</code></dt>
 <dd><p>Jacobian is singular.</p></dd>
 
-<dt>list("BadJac")</dt>
+<dt><code>BadJac</code></dt>
 <dd><p>Jacobian is unusable.</p></dd>
 
-<dt>list("ERROR")</dt>
+<dt><code>ERROR</code></dt>
 <dd><p><code>nleqslv</code> stopped because of a fatal error.</p></dd>
 
 </dl></div>

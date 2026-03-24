@@ -41,29 +41,29 @@ several possibly abbreviated items.}
 \value{
 \code{testnslv} returns an object of class \code{"test.nleqslv"}
 which is a list containing the following elements \describe{
-\item{list("call")}{the matched call} \item{list("out")}{ a dataframe
+\item{\code{call}}{the matched call} \item{\code{out}}{ a dataframe
 containing the results with the following columns \describe{
-\item{list("Method")}{method used.} \item{list("Global")}{global strategy
-used.} \item{list("termcd")}{termination code of \code{nleqslv}.}
-\item{list("Fcnt")}{number of function evaluations used by the method and
+\item{\code{Method}}{method used.} \item{\code{Global}}{global strategy
+used.} \item{\code{termcd}}{termination code of \code{nleqslv}.}
+\item{\code{Fcnt}}{number of function evaluations used by the method and
 global strategy.  This excludes function evaluations made when computing a
-numerical Jacobian.} \item{list("Jcnt")}{number of Jacobian evaluations.}
-\item{list("Iter")}{number of outer iterations used by the algorithm.}
-\item{list("Message")}{a string describing the termination code in an
-abbreviated form.} \item{list("Fnorm")}{square of the euclidean norm of the
-vector of function results divided by 2.} \item{list("cpusecs")}{CPU seconds
+numerical Jacobian.} \item{\code{Jcnt}}{number of Jacobian evaluations.}
+\item{\code{Iter}}{number of outer iterations used by the algorithm.}
+\item{\code{Message}}{a string describing the termination code in an
+abbreviated form.} \item{\code{Fnorm}}{square of the euclidean norm of the
+vector of function results divided by 2.} \item{\code{cpusecs}}{CPU seconds
 used by the requested number of repetitions (only present when argument
-\code{Nrep} is not 0).} } } \item{list("title")}{the description if
+\code{Nrep} is not 0).} } } \item{\code{title}}{the description if
 specified} } The abbreviated strings are \describe{
-\item{list("Fcrit")}{Convergence of function values has been achieved.}
-\item{list("Xcrit")}{This means that the relative distance between two
+\item{\code{Fcrit}}{Convergence of function values has been achieved.}
+\item{\code{Xcrit}}{This means that the relative distance between two
 consecutive x-values is smaller than \code{xtol}.}
-\item{list("Stalled")}{The algorithm cannot find an acceptable new point.}
-\item{list("Maxiter")}{Iteration limit \code{maxit} exceeded.}
-\item{list("Illcond")}{Jacobian is too ill-conditioned.}
-\item{list("Singular")}{Jacobian is singular.}
-\item{list("BadJac")}{Jacobian is unusable.}
-\item{list("ERROR")}{\code{nleqslv} stopped because of a fatal error.} }
+\item{\code{Stalled}}{The algorithm cannot find an acceptable new point.}
+\item{\code{Maxiter}}{Iteration limit \code{maxit} exceeded.}
+\item{\code{Illcond}}{Jacobian is too ill-conditioned.}
+\item{\code{Singular}}{Jacobian is singular.}
+\item{\code{BadJac}}{Jacobian is unusable.}
+\item{\code{ERROR}}{\code{nleqslv} stopped because of a fatal error.} }
 }
 \description{
 The function tests different methods and global strategies for solving a
