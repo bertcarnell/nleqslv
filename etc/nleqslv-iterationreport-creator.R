@@ -6,8 +6,7 @@
 #
 ################################################################################
 
-require(devtools)
-devtools::load_all()
+require(nleqslv)
 
 output_file <- file.path("R", "nleqslv-iterationreport.R")
 input_file <- file.path("etc", "nleqslv-iterationreport-template.txt")
