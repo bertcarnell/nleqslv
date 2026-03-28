@@ -11,9 +11,9 @@ common_test_f <- function(x) {
 
 common_test_jac <- function(x) {
   J <- matrix(0,nrow=3,ncol=3)
-  J[,1] <- c(1-x[2],1-x[3],0)
-  J[,2] <- c(1-x[1],0,1)
-  J[,3] <- c(0,1-x[1],1)
+  J[,1] <- c(1-x[2], 1-x[3], 0)
+  J[,2] <- c(1-x[1], 0, 1)
+  J[,3] <- c(0, 1-x[1], 1)
   J
 }
 
