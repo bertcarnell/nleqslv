@@ -1,8 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://bertcarnell.github.io/nleqslv/404.html</loc></url>
+<url><loc>https://bertcarnell.github.io/nleqslv/LICENSE-text.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/authors.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/index.html</loc></url>
-<url><loc>https://bertcarnell.github.io/nleqslv/LICENSE-text.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/index.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/nleqslv-iterationreport.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/nleqslv-package.html</loc></url>
@@ -10,6 +10,5 @@
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/print.test.nleqslv.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/searchZeros.html</loc></url>
 <url><loc>https://bertcarnell.github.io/nleqslv/reference/testnslv.html</loc></url>
-<url><loc>https://bertcarnell.github.io/nleqslv/reference/zznleqslv-iterationreport.html</loc></url>
 </urlset>
 
