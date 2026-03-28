@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - 'etc/**'
+      - 'test/**'
       - 'nleqslv.Rproj'
       - '.github/workflows/build_readme.yaml'
       - '.github/workflows/test-coverage/.yml'
