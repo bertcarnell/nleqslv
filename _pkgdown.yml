@@ -1,4 +1,4 @@
 url: https://bertcarnell.github.io/nleqslv/
 template:
   bootstrap: 5
-
+  math-rendering: mathjax

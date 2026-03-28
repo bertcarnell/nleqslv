@@ -39,6 +39,7 @@ Methods for Unconstrained Optimization and Nonlinear Equations}, Siam.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://bertcarnell.github.io/nleqslv}
   \item \url{https://github.com/bertcarnell/nleqslv}
   \item Report bugs at \url{https://github.com/bertcarnell/nleqslv/issues}
 }
