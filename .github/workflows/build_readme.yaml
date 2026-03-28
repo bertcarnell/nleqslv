@@ -3,7 +3,7 @@
 on:
   push:
     paths:
-      - 'README.Rmd'
+      - 'etc/README.Rmd'
     tags: none
   workflow_dispatch:
 

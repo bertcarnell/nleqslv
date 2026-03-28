@@ -2,6 +2,17 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
+      - 'etc/**'
+      - 'nleqslv.Rproj'
+      - 'logo.svg'
+      - 'pkgdown/**'
+      - 'README.md'
+      - '.github/workflows/build_readme.yaml'
+      - '.github/workflows/pkgdown.yml'
+      - '.github/workflows/rhub.yaml'
+      - '.github/workflows/R-CMD-check.yml'
     branches: [main, master]
   pull_request:
   workflow_dispatch:
