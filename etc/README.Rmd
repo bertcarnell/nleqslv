@@ -26,7 +26,7 @@ cat(paste0("|<sub>",
              c("Actions", "Code Coverage", "Website", "CRAN Downloads", "CRAN"), 
              collapse="</sub>|<sub>"), 
            "</sub>|\n"))
-cat(paste0("|", paste0(rep(":---:", 6), collapse="|"), "|\n"))
+cat(paste0("|", paste0(rep(":---:", 5), collapse="|"), "|\n"))
 cat(paste0("|", 
            paste0(c("[![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml)",
                     "[![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv)",

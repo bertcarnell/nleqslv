@@ -30,7 +30,7 @@ jobs:
       - name: Render README
         run: |
           R CMD INSTALL ../lhs
-          Rscript -e 'rmarkdown::render("README.Rmd")'
+          Rscript -e 'rmarkdown::render(file.path("etc", "README.Rmd"), output_file = file.path("..", "README.md"))'
 
       - name: commit README
         run: |
