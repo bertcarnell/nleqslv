@@ -71,7 +71,7 @@
 <col width="16%">
 <col width="16%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="center"><sub>Actions</sub></th>
 <th align="center"><sub>Code Coverage</sub></th>
 <th align="center"><sub>Website</sub></th>
@@ -79,7 +79,7 @@
 <th align="center"><sub>CRAN</sub></th>
 <th align="center"></th>
 </tr></thead>
-<tbody><tr>
+<tbody><tr class="odd">
 <td align="center"><a href="https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></td>
 <td align="center"><a href="https://app.codecov.io/gh/bertcarnell/nleqslv" class="external-link"><img src="https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg" alt="Codecov test coverage"></a></td>
 <td align="center"><a href="https://bertcarnell.github.io/nleqslv/"><img src="https://img.shields.io/badge/pkgdown-nleqslv-blue.svg"></a></td>
@@ -104,14 +104,14 @@
 <p>You can also install the development version of <code>lhs</code> from github with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bertcarnell/nleqslv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bertcarnell/nleqslv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
 <p>Start with a function to find solutions for: High-degree polynomial system from Kearfott (1987).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bertcarnell/nleqslv" class="external-link">nleqslv</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://bertcarnell.github.io/nleqslv">nleqslv</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hdp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -237,7 +237,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
