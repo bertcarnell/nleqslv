@@ -9,8 +9,10 @@ on:
 
 name: Build-README
 
+env: FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true
+
 jobs:
-  pkgdown:
+  buildreadme:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -29,7 +31,7 @@ jobs:
 
       - name: Render README
         run: |
-          R CMD INSTALL ../lhs
+          R CMD INSTALL ../nleqslv
           Rscript -e 'rmarkdown::render(file.path("etc", "README.Rmd"), output_file = file.path("..", "README.md"))'
 
       - name: commit README
