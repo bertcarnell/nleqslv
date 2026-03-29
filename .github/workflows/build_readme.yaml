@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'etc/README.Rmd'
+      - '.github/workflows/build_readme.yaml'
     tags: none
   workflow_dispatch:
 
