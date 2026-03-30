@@ -66,10 +66,8 @@ jobs:
       - name: fix MKL build
         if: ${{ github.event.inputs.config == 'mkl' }}
         run: |
-          module list
-          module avail
-          #module purge
-          #module load intel/<version>
+          ls /opt/intel/lib/intel64
+          ls /opt/intel/mkl/lib/intel64
       - uses: r-hub/actions/run-check@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
