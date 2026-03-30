@@ -64,7 +64,7 @@ jobs:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
       - name: fix MKL build
-        if: ${{ github.event.inputs.config == 'mkl' }}
+        if: ${{ contains('mkl', github.event.inputs.config) }}
         run: |
           ls /opt/intel/lib/intel64
           ls /opt/intel/mkl/lib/intel64
