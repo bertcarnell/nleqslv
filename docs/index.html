@@ -62,14 +62,13 @@
 <img align="left" width="200" height="200" src="logo.svg">
 </td>
 </tr></table>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
 </colgroup>
 <thead><tr class="header">
 <th align="center"><sub>Actions</sub></th>
@@ -77,7 +76,6 @@
 <th align="center"><sub>Website</sub></th>
 <th align="center"><sub>CRAN Downloads</sub></th>
 <th align="center"><sub>CRAN</sub></th>
-<th align="center"></th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="center"><a href="https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></td>
@@ -85,7 +83,6 @@
 <td align="center"><a href="https://bertcarnell.github.io/nleqslv/"><img src="https://img.shields.io/badge/pkgdown-nleqslv-blue.svg"></a></td>
 <td align="center"><a href="https://cran.r-project.org/package=nleqslv" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/nleqslv"></a></td>
 <td align="center"><a href="https://cran.r-project.org/package=nleqslv" class="external-link"><img src="https://www.r-pkg.org/badges/version/nleqslv" alt="CRAN status"></a></td>
-<td align="center"></td>
 </tr></tbody>
 </table>
 <div class="section level1">
@@ -111,9 +108,10 @@
 </h2>
 <p>Start with a function to find solutions for: High-degree polynomial system from Kearfott (1987).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://bertcarnell.github.io/nleqslv">nleqslv</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">hdp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://bertcarnell.github.io/nleqslv">nleqslv</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## Loading required package: nleqslv</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hdp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span></span>
 <span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span>  <span class="va">f</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">^</span><span class="fl">9</span> <span class="op">-</span> <span class="fl">6</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">^</span><span class="fl">5</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">^</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
@@ -123,73 +121,73 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">sln</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/nleqslv.html">nleqslv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span><span class="op">)</span>, <span class="va">hdp</span>, control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trace<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">##   Algorithm parameters</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="do">##   --------------------</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">##   Method: Broyden  Global strategy: double dogleg (initial trust region = -2)</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##   Maximum stepsize = 1.79769e+308</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">##   Scaling: fixed</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">##   ftol = 1e-08 xtol = 1e-08 btol = 0.001 cndtol = 1e-12</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">##   Iteration report</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">##   ----------------</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">##   Iter         Jac     Lambda      Eta     Dlt0     Dltn         Fnorm   Largest |f|</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">##      0                                                    1.378974e-01  4.221216e-01</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">##      1  N(1.2e-01) N            0.7206   1.0941   1.0941  7.861105e-02  3.280423e-01</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">##      2  B(1.6e-01) N            0.8846   0.4073   0.8147  9.816774e-04  3.712402e-02</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">##      3  B(1.5e-01) N            0.9568   0.0325   0.0649  5.648068e-05  8.954167e-03</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">##      4  B(1.4e-01) N            0.7584   0.0185   0.0185  3.258227e-05  6.104201e-03</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="do">##      5  B(1.6e-01) N            0.8301   0.0082   0.0164  2.478058e-07  5.429045e-04</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="do">##      6  B(1.6e-01) N            0.9604   0.0005   0.0005  2.518127e-07  5.875496e-04</span></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="do">##      7  N(4.3e-02) N            0.2754   0.0090   0.0179  3.356158e-09  8.006713e-05</span></span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="do">##      8  B(4.5e-02) N            0.9894   0.0001   0.0002  4.425283e-13  6.020420e-07</span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="do">##      9  B(4.8e-02) N            0.5297   0.0000   0.0000  1.824856e-15  4.427695e-08</span></span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="do">##     10  B(4.6e-02) N            0.6679   0.0000   0.0000  1.380907e-19  3.970110e-10</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sln</span><span class="op">$</span><span class="va">x</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## [1]  0.27985470  0.43278904 -0.01418919</span></span></code></pre></div>
-<p>Evaluate solutions from the same starting location using multiple methods and global strategies.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">##   Algorithm parameters</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">##   --------------------</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">##   Method: Broyden  Global strategy: double dogleg (initial trust region = -2)</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">##   Maximum stepsize = 1.79769e+308</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">##   Scaling: fixed</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">##   ftol = 1e-08 xtol = 1e-08 btol = 0.001 cndtol = 1e-12</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">##   Iteration report</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">##   ----------------</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##   Iter         Jac     Lambda      Eta     Dlt0     Dltn         Fnorm   Largest |f|</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">##      0                                                    1.378974e-01  4.221216e-01</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##      1  N(1.2e-01) N            0.7206   1.0941   1.0941  7.861105e-02  3.280423e-01</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">##      2  B(1.6e-01) N            0.8846   0.4073   0.8147  9.816774e-04  3.712402e-02</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">##      3  B(1.5e-01) N            0.9568   0.0325   0.0649  5.648068e-05  8.954167e-03</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="do">##      4  B(1.4e-01) N            0.7584   0.0185   0.0185  3.258227e-05  6.104201e-03</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="do">##      5  B(1.6e-01) N            0.8301   0.0082   0.0164  2.478058e-07  5.429045e-04</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="do">##      6  B(1.6e-01) N            0.9604   0.0005   0.0005  2.518127e-07  5.875496e-04</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="do">##      7  N(4.3e-02) N            0.2754   0.0090   0.0179  3.356158e-09  8.006713e-05</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="do">##      8  B(4.5e-02) N            0.9894   0.0001   0.0002  4.425283e-13  6.020421e-07</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="do">##      9  B(4.8e-02) N            0.5297   0.0000   0.0000  1.824856e-15  4.427695e-08</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="do">##     10  B(4.6e-02) N            0.6679   0.0000   0.0000  1.380907e-19  3.970110e-10</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/testnslv.html">testnslv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span><span class="op">)</span>, <span class="va">hdp</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## testnslv(x = c(0.2, 0.3, 0.7), fn = hdp)</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## Results:</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">##     Method Global termcd Fcnt Jcnt Iter Message     Fnorm</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 1   Newton  cline      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 2   Newton  qline      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">## 3   Newton  gline      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## 4   Newton pwldog      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">## 5   Newton dbldog      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">## 6   Newton   hook      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">## 7   Newton   none      1    5    5    5   Fcrit 1.431e-21</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">## 8  Broyden  cline      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">## 9  Broyden  qline      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="do">## 10 Broyden  gline      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="do">## 11 Broyden pwldog      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="do">## 12 Broyden dbldog      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="do">## 13 Broyden   hook      1   10    2   10   Fcrit 1.381e-19</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="do">## 14 Broyden   none      1   17    1   17   Fcrit 9.498e-18</span></span></code></pre></div>
-<p>Search for multiple solutions from a variety of starting locations.</p>
+<code class="sourceCode R"><span><span class="va">sln</span><span class="op">$</span><span class="va">x</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## [1]  0.27985470  0.43278904 -0.01418919</span></span></code></pre></div>
+<p>Evaluate solutions from the same starting location using multiple methods and global strategies.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/testnslv.html">testnslv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span><span class="op">)</span>, <span class="va">hdp</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="do">## testnslv(x = c(0.2, 0.3, 0.7), fn = hdp)</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="do">## Results:</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="do">##     Method Global termcd Fcnt Jcnt Iter Message     Fnorm</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="do">## 1   Newton  cline      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="do">## 2   Newton  qline      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="do">## 3   Newton  gline      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="do">## 4   Newton pwldog      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="do">## 5   Newton dbldog      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="do">## 6   Newton   hook      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="do">## 7   Newton   none      1    5    5    5   Fcrit 1.431e-21</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="do">## 8  Broyden  cline      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="do">## 9  Broyden  qline      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="do">## 10 Broyden  gline      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="do">## 11 Broyden pwldog      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="do">## 12 Broyden dbldog      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="do">## 13 Broyden   hook      1   10    2   10   Fcrit 1.381e-19</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="do">## 14 Broyden   none      1   17    1   17   Fcrit 9.498e-18</span></span></code></pre></div>
+<p>Search for multiple solutions from a variety of starting locations.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1245323</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">40</span></span>
 <span><span class="va">xstart</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">3</span><span class="op">*</span><span class="va">N</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">N</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/searchZeros.html">searchZeros</a></span><span class="op">(</span><span class="va">xstart</span>, <span class="va">hdp</span>, method <span class="op">=</span> <span class="st">"Broyden"</span>, global <span class="op">=</span> <span class="st">"dbldog"</span><span class="op">)</span></span>
 <span><span class="va">ans</span><span class="op">$</span><span class="va">x</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="do">##                [,1]          [,2]          [,3]</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="do">##  [1,] -5.153882e-01  1.156257e-08 -1.244560e-02</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="do">##  [2,] -4.669800e-01 -2.180704e-01 -2.257785e-09</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="do">##  [3,] -4.669800e-01  2.180704e-01 -8.809293e-11</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="do">##  [4,] -2.798547e-01 -4.327890e-01 -1.418919e-02</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="do">##  [5,] -2.798547e-01  4.327890e-01 -1.418919e-02</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="do">##  [6,]  3.744009e-08 -5.153882e-01 -6.610876e-11</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="do">##  [7,]  5.553721e-09  5.153882e-01 -6.161777e-11</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="do">##  [8,]  2.798547e-01 -4.327891e-01 -1.418919e-02</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="do">##  [9,]  2.798547e-01  4.327890e-01 -1.418919e-02</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="do">## [10,]  4.669800e-01 -2.180703e-01  1.659893e-10</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="do">## [11,]  4.669800e-01  2.180703e-01 -4.756912e-10</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="do">## [12,]  5.153882e-01 -6.330974e-09 -1.244560e-02</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">##                [,1]          [,2]          [,3]</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="do">##  [1,] -5.153882e-01  1.156243e-08 -1.244560e-02</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="do">##  [2,] -4.669800e-01 -2.180704e-01 -2.257786e-09</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="do">##  [3,] -4.669800e-01  2.180704e-01 -8.809291e-11</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="do">##  [4,] -2.798547e-01 -4.327890e-01 -1.418919e-02</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="do">##  [5,] -2.798547e-01  4.327890e-01 -1.418919e-02</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="do">##  [6,]  3.744009e-08 -5.153882e-01 -6.610876e-11</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="do">##  [7,]  5.553708e-09  5.153882e-01 -6.161770e-11</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="do">##  [8,]  2.798547e-01 -4.327891e-01 -1.418919e-02</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="do">##  [9,]  2.798547e-01  4.327890e-01 -1.418919e-02</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="do">## [10,]  4.669800e-01 -2.180703e-01  1.659893e-10</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="do">## [11,]  4.669800e-01  2.180703e-01 -4.756912e-10</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="do">## [12,]  5.153882e-01 -6.330974e-09 -1.244560e-02</span></span></code></pre></div>
 </div>
 </div>
 
