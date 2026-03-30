@@ -6,9 +6,9 @@
 </tr>
 </table>
 
-| <sub>Actions</sub> | <sub>Code Coverage</sub> | <sub>Website</sub> | <sub>CRAN Downloads</sub> | <sub>CRAN</sub> |  |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-| [![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml) | [![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv) | [![](https://img.shields.io/badge/pkgdown-nleqslv-blue.svg)](https://bertcarnell.github.io/nleqslv/) | [![](https://cranlogs.r-pkg.org/badges/nleqslv)](https://cran.r-project.org/package=nleqslv) | [![CRAN status](https://www.r-pkg.org/badges/version/nleqslv)](https://cran.r-project.org/package=nleqslv) |  |
+|                                                                                <sub>Actions</sub>                                                                                |                                                       <sub>Code Coverage</sub>                                                       |                                          <sub>Website</sub>                                          |                                  <sub>CRAN Downloads</sub>                                   |                                              <sub>CRAN</sub>                                               |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+| [![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml) | [![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv) | [![](https://img.shields.io/badge/pkgdown-nleqslv-blue.svg)](https://bertcarnell.github.io/nleqslv/) | [![](https://cranlogs.r-pkg.org/badges/nleqslv)](https://cran.r-project.org/package=nleqslv) | [![CRAN status](https://www.r-pkg.org/badges/version/nleqslv)](https://cran.r-project.org/package=nleqslv) |
 
 # nleqslv
 
@@ -43,7 +43,11 @@ system from Kearfott (1987).
 
 ``` r
 require(nleqslv)
+```
 
+    ## Loading required package: nleqslv
+
+``` r
 hdp <- function(x) {
   stopifnot(length(x) == 3)
   f <- numeric(3)
@@ -74,7 +78,7 @@ sln <- nleqslv(c(0.2, 0.3, 0.7), hdp, control=list(trace=1))
     ##      5  B(1.6e-01) N            0.8301   0.0082   0.0164  2.478058e-07  5.429045e-04
     ##      6  B(1.6e-01) N            0.9604   0.0005   0.0005  2.518127e-07  5.875496e-04
     ##      7  N(4.3e-02) N            0.2754   0.0090   0.0179  3.356158e-09  8.006713e-05
-    ##      8  B(4.5e-02) N            0.9894   0.0001   0.0002  4.425283e-13  6.020420e-07
+    ##      8  B(4.5e-02) N            0.9894   0.0001   0.0002  4.425283e-13  6.020421e-07
     ##      9  B(4.8e-02) N            0.5297   0.0000   0.0000  1.824856e-15  4.427695e-08
     ##     10  B(4.6e-02) N            0.6679   0.0000   0.0000  1.380907e-19  3.970110e-10
 
@@ -123,13 +127,13 @@ ans$x
 ```
 
     ##                [,1]          [,2]          [,3]
-    ##  [1,] -5.153882e-01  1.156257e-08 -1.244560e-02
-    ##  [2,] -4.669800e-01 -2.180704e-01 -2.257785e-09
-    ##  [3,] -4.669800e-01  2.180704e-01 -8.809293e-11
+    ##  [1,] -5.153882e-01  1.156243e-08 -1.244560e-02
+    ##  [2,] -4.669800e-01 -2.180704e-01 -2.257786e-09
+    ##  [3,] -4.669800e-01  2.180704e-01 -8.809291e-11
     ##  [4,] -2.798547e-01 -4.327890e-01 -1.418919e-02
     ##  [5,] -2.798547e-01  4.327890e-01 -1.418919e-02
     ##  [6,]  3.744009e-08 -5.153882e-01 -6.610876e-11
-    ##  [7,]  5.553721e-09  5.153882e-01 -6.161777e-11
+    ##  [7,]  5.553708e-09  5.153882e-01 -6.161770e-11
     ##  [8,]  2.798547e-01 -4.327891e-01 -1.418919e-02
     ##  [9,]  2.798547e-01  4.327890e-01 -1.418919e-02
     ## [10,]  4.669800e-01 -2.180703e-01  1.659893e-10
