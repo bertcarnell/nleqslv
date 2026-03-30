@@ -2,7 +2,7 @@
 title: "nleqslv"
 output: 
   md_document:
-    variant: markdown_github
+    variant: gfm
   
 ---
 
