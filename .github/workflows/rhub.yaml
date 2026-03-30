@@ -66,8 +66,7 @@ jobs:
       - name: fix MKL build
         if: ${{ contains('mkl', github.event.inputs.config) }}
         run: |
-          ls /opt/intel/lib/intel64
-          ls /opt/intel/mkl/lib/intel64
+          echo $MKLROOT
       - uses: r-hub/actions/run-check@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
