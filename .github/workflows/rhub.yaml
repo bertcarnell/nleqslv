@@ -66,7 +66,7 @@ jobs:
       - name: fix MKL build
         if: ${{ contains('mkl', github.event.inputs.config) }}
         run: |
-          echo $MKLROOT
+          LD_LIBRARY_PATH=$LD_LIBRARY_PATH;/opt/intel/oneapi/mkl/2024.2/lib/intel64/
       - uses: r-hub/actions/run-check@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
