@@ -63,11 +63,6 @@ jobs:
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
-      - name: fix MKL build
-        if: ${{ contains('mkl', github.event.inputs.config) }}
-        run: |
-          UPDATED_LD_LIBRARY_PATH="/opt/intel/oneapi/mkl/2024.2/lib/intel64/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-          echo "LD_LIBRARY_PATH=$UPDATED_LD_LIBRARY_PATH" >> $GITHUB_ENV
       - uses: r-hub/actions/run-check@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
