@@ -10,9 +10,9 @@ on:
       - 'pkgdown/**'
       - 'README.md'
       - '.github/workflows/build_readme.yaml'
-      - '.github/workflows/pkgdown.yml'
+      - '.github/workflows/pkgdown.yaml'
       - '.github/workflows/rhub.yaml'
-      - '.github/workflows/test-coverage.yml'
+      - '.github/workflows/test-coverage.yaml'
     branches: [main, master]
   pull_request:
   workflow_dispatch:
