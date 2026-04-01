@@ -16,7 +16,7 @@ on:
         description: 'A comma separated list of R-hub platforms to use.'
         type: string
         # from https://r-hub.github.io/containers/
-        default: 'ubuntu-clang,ubuntu-gcc12,ubuntu-next,ubuntu-release,atlas,clang-asan,clang-ubsan,clang21,clang22,donttest,gcc16,gcc-asan,lto,mkl,nold,nosuggests,rchk,valgrind,s390x,centos7,linux,windows,macos-arm64'
+        default: 'ubuntu-clang,ubuntu-gcc12,ubuntu-next,ubuntu-release,atlas,clang-asan,clang-ubsan,clang21,clang22,donttest,gcc16,gcc-asan,lto,mkl,nold,nosuggests,rchk,valgrind,centos7,linux,windows,macos-arm64'
       name:
         description: 'Run name. You can leave this empty now.'
         type: string
