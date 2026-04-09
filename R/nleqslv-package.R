@@ -1,7 +1,9 @@
 # Copyright (c) 2026 Rob Carnell
 
 #' The \pkg{nleqslv} package provides two algorithms for solving (dense)
-#' nonlinear systems of equations. The methods provided are \itemize{ \item a
+#' nonlinear systems of equations.
+#'
+#' The methods provided are \itemize{ \item a
 #' Broyden Secant method where the matrix of derivatives is updated after each
 #' major iteration using the Broyden rank 1 update.  \item a full Newton method
 #' where the Jacobian matrix of derivatives is recalculated at each iteration }
