@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/bertcarnell/nleqslv/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/bertcarnell/nleqslv/blob/main/DESCRIPTION)
 
 Hasselman B, Carnell R (2026). *nleqslv: Solve Systems of Nonlinear
 Equations*.
