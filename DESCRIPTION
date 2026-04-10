@@ -19,8 +19,8 @@ Description: Solve a system of nonlinear equations using a Broyden or a Newton m
              a singular or ill-conditioned Jacobian.
 License: GPL (>= 2)
 Encoding: UTF-8
-URL: https://bertcarnell.github.io/nleqslv, https://github.com/bertcarnell/nleqslv
-BugReports: https://github.com/bertcarnell/nleqslv/issues
+URL: https://bertcarnell.github.io/nleqslv/, https://github.com/bertcarnell/nleqslv/
+BugReports: https://github.com/bertcarnell/nleqslv/issues/
 RoxygenNote: 7.3.3
 NeedsCompilation: yes
 Packaged: 2026-03-05 04:48:50 UTC; bertc

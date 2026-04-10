@@ -4,8 +4,8 @@
 |---------------|
 | ![](logo.svg) |
 
-|                                                                                    _(Actions)                                                                                    |                                                           _(Code Coverage)                                                           |                                              _(Website)                                              |                                      _(CRAN Downloads)                                       |                                                  _(CRAN)                                                   |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
+| _(Actions) | _(Code Coverage) | _(Website) | _(CRAN Downloads) | _(CRAN) |
+|:--:|:--:|:--:|:--:|:--:|
 | [![R-CMD-check](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bertcarnell/nleqslv/actions/workflows/R-CMD-check.yaml) | [![Codecov test coverage](https://codecov.io/gh/bertcarnell/nleqslv/graph/badge.svg)](https://app.codecov.io/gh/bertcarnell/nleqslv) | [![](https://img.shields.io/badge/pkgdown-nleqslv-blue.svg)](https://bertcarnell.github.io/nleqslv/) | [![](https://cranlogs.r-pkg.org/badges/nleqslv)](https://cran.r-project.org/package=nleqslv) | [![CRAN status](https://www.r-pkg.org/badges/version/nleqslv)](https://cran.r-project.org/package=nleqslv) |
 
 Solve a system of nonlinear equations using a Broyden or a Newton method
